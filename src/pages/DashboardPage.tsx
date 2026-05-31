@@ -67,7 +67,6 @@ export function DashboardPage() {
               user={user}
               tasks={tasks}
             />
-
             <div className="dashboard-top-bar">
               <div />
               <button
@@ -89,14 +88,6 @@ export function DashboardPage() {
                       <h2 className="dashboard-title">Organize seu ritmo de trabalho</h2>
                       <p className="dashboard-description">Acompanhe prioridades, avance nas entregas e mantenha o controle do seu fluxo diário.</p>
                     </div>
-
-                    <button
-                      className="dashboard-button"
-                      onClick={() => setShowForm(!showForm)}
-                      type="button"
-                    >
-                      {showForm ? 'Fechar' : 'Nova tarefa'}
-                    </button>
                   </div>
 
                   <TaskFilters
