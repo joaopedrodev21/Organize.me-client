@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import axios from "axios";
 import "./AuthPage.css";
 
 export function LoginPage() {
@@ -16,8 +17,12 @@ export function LoginPage() {
         try {
             await login(email, password);
             navigate("/dashboard");
-        } catch (err: any) {
-            setError(err.response?.data?.message || "Email ou senha inválidos");
+        } catch (err: unknown) {
+            if (axios.isAxiosError(err)) {
+                setError(err.response?.data?.message || "Email ou senha inválidos");
+            } else {
+                setError("Email ou senha inválidos");
+            }
         }
     }
     return (

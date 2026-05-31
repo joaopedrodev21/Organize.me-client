@@ -3,6 +3,7 @@ import { DashboardHeader } from "../components/DashboardHeader";
 import { TaskSection } from "../components/TaskSection";
 import { TaskForm } from "../components/TaskForm";
 import { TaskFilters, type PriorityFilter, type StatusTab } from "../components/TaskFilters";
+import type { UpdateTaskData } from "../types";
 import { PieChart } from "../components/PieChart";
 import { PriorityStats } from "../components/PriorityStats";
 import "../styles/dashboard-layout.css";
@@ -47,7 +48,7 @@ export function DashboardPage() {
   const completedTasksList = filteredTasks.filter(t => t.done);
 
   const handleToggle = (id: number, done: boolean) => updateTask(id, { done });
-  const handleUpdate = (id: number, data: any) => updateTask(id, data);
+  const handleUpdate = (id: number, data: UpdateTaskData) => updateTask(id, data);
 
   const counts = {
     all: tasks.length,

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import axios from "axios";
 import "./AuthPage.css";
 
 export function RegisterPage() {
@@ -17,9 +18,12 @@ export function RegisterPage() {
         try {
             await register(name, email, password);
             navigate("/dashboard");
-        }
-        catch (err: any) {
-            setError(err.response?.data?.message || "Erro ao cadastrar, tente novamente!");
+        } catch (err: unknown) {
+            if (axios.isAxiosError(err)) {
+                setError(err.response?.data?.message || "Erro ao cadastrar, tente novamente!");
+            } else {
+                setError("Erro ao cadastrar, tente novamente!");
+            }
         }
     }
     return (

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import type { Task, CreateTaskData, UpdateTaskData} from '../types';
 import { taskService } from '../services/task.service';
+import axios from 'axios';
 
 export function useTasks() {
     const [tasks, setTasks] = useState<Task[]>([]);
@@ -14,23 +15,27 @@ export function useTasks() {
             const result = await taskService.getAll();
             const tasksData = Array.isArray(result) ? result : result.data;
             setTasks(tasksData ?? []);
-        } catch (err: any) {
-            setError(err.response?.data?.message || "Erro ao buscar tarefas");
+        } catch (err: unknown) {
+            if (axios.isAxiosError(err)) {
+                setError(err.response?.data?.message || "Erro ao buscar tarefas");
+            } else {
+                setError("Erro ao buscar tarefas");
+            }
         } finally {
             setLoading(false);
         }
     }
     async function createTask(data: CreateTaskData) {
         await taskService.create(data);
-        await fetchTasks();
+        fetchTasks();
     }
     async function updateTask(id: number, data: UpdateTaskData) {
         await taskService.update(id, data);
-        await fetchTasks();
+        fetchTasks();
     }
     async function deleteTask(id: number) {
         await taskService.delete(id);
-        await fetchTasks();
+        fetchTasks();
     }
     useEffect(() => {
         fetchTasks();

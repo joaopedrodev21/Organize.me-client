@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { TaskCard } from "./TaskCard";
-import type { Task } from "../types";
+import type { Task, UpdateTaskData } from "../types";
 import '../styles/task-section.css';
 
 interface TaskSectionProps {
@@ -11,7 +11,7 @@ interface TaskSectionProps {
   completed?: boolean;
   onToggle: (id: number, done: boolean) => void;
   onDelete: (id: number) => void;
-  onUpdate: (id: number, data: Partial<Task>) => void;
+  onUpdate: (id: number, data: UpdateTaskData) => void;
 }
 
 export function TaskSection({
@@ -44,7 +44,7 @@ export function TaskSection({
               task={task}
               onToggle={(done: boolean) => onToggle(task.id, done)}
               onDelete={() => onDelete(task.id)}
-              onUpdate={(data: Partial<Task>) => onUpdate(task.id, data)}
+              onUpdate={(data: UpdateTaskData) => onUpdate(task.id, data)}
             />
           ))}
         </div>

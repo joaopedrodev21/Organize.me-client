@@ -27,10 +27,10 @@ export interface CreateTaskData {
 
 export interface UpdateTaskData {
     title?: string
-    description?: string
+    description?: string | null
     priority?: "LOW" | "HIGH"
     done?: boolean
-    dueDate?: string
+    dueDate?: string | null
 }
 
 export interface LoginResponse {
