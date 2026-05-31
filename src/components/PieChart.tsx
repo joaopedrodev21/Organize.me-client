@@ -1,4 +1,5 @@
 import { PieChart as PieChartIcon } from "lucide-react";
+import '../styles/pie-chart.css';
 
 interface PieChartProps {
   completed: number;

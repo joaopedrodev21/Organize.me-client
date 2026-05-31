@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { SidebarProgress } from './SidebarProgress';
-import { LayoutDashboard, CheckSquare, Calendar, BarChart3, Settings, LogOut, ChevronLeft, ChevronRight, Bell, Search } from 'lucide-react';
+import { LayoutDashboard, CheckSquare, Calendar, BarChart3, Settings, LogOut, ChevronLeft, ChevronRight, Search } from 'lucide-react';
 import type { Task } from '../types';
+import '../styles/sidebar.css';
 
 interface SidebarProps {
   tasks: Task[];

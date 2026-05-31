@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { TaskCard } from "./TaskCard";
 import type { Task } from "../types";
+import '../styles/task-section.css';
 
 interface TaskSectionProps {
   title: string;

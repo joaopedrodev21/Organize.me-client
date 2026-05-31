@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { CreateTaskData } from "../types";
+import '../styles/task-form.css';
 
 interface Props {
     onSubmit: (data: CreateTaskData) => Promise<void>;

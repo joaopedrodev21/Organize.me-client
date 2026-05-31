@@ -5,7 +5,7 @@ import { TaskForm } from "../components/TaskForm";
 import { TaskFilters, type PriorityFilter, type StatusTab } from "../components/TaskFilters";
 import { PieChart } from "../components/PieChart";
 import { PriorityStats } from "../components/PriorityStats";
-import "./DashboardPage.css";
+import "../styles/dashboard-layout.css";
 import { Flame, Pin, CheckCircle2, Plus } from "lucide-react";
 import { useTasks } from "../hooks/useTasks";
 import { useAuth } from "../hooks/useAuth";
@@ -21,7 +21,6 @@ export function DashboardPage() {
   // Calcular estatísticas
   const completedTasks = tasks.filter(t => t.done).length;
   const pendingTasks = tasks.length - completedTasks;
-  const productivity = tasks.length > 0 ? Math.round((completedTasks / tasks.length) * 100) : 0;
 
   // Aplicar filtros
   const filteredTasks = useMemo(() => {

@@ -1,5 +1,6 @@
 import { CheckCircle2, ClipboardList, Clock, Rocket } from "lucide-react";
 import type { Task } from '../types';
+import '../styles/dashboard-header.css';
 
 interface DashboardHeaderProps {
   user: { name: string } | null;

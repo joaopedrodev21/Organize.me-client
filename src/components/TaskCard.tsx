@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Task, UpdateTaskData } from "../types"
+import '../styles/task-card.css';
 
 interface Props {
     task: Task;

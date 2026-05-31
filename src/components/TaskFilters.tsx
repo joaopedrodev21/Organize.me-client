@@ -1,4 +1,5 @@
 import { List, ArrowUp, ArrowDown } from "lucide-react";
+import '../styles/task-filters.css';
 
 export type PriorityFilter = "ALL" | "HIGH" | "LOW";
 export type StatusTab = "all" | "pending" | "completed";

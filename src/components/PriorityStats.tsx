@@ -1,4 +1,5 @@
 import { Tag } from "lucide-react";
+import '../styles/priority-stats.css';
 
 interface PriorityStatsProps {
   high: number;
