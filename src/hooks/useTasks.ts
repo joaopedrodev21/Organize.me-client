@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import type { Task, CreateTaskData, UpdateTaskData} from '../types';
 import { taskService } from '../services/task.service';
 import axios from 'axios';
@@ -7,8 +7,11 @@ export function useTasks() {
     const [tasks, setTasks] = useState<Task[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+    const [creating, setCreating] = useState(false);
+    const [updating, setUpdating] = useState<number | null>(null);
+    const [deleting, setDeleting] = useState<number | null>(null);
 
-    async function fetchTasks() {
+    const fetchTasks = useCallback(async () => {
         setLoading(true);
         setError(null);
         try{
@@ -24,21 +27,51 @@ export function useTasks() {
         } finally {
             setLoading(false);
         }
-    }
+    }, []);
+
     async function createTask(data: CreateTaskData) {
-        await taskService.create(data);
-        fetchTasks();
+        setCreating(true);
+        try {
+            await taskService.create(data);
+            await fetchTasks();
+        } finally {
+            setCreating(false);
+        }
     }
+
     async function updateTask(id: number, data: UpdateTaskData) {
-        await taskService.update(id, data);
-        fetchTasks();
+        setUpdating(id);
+        try {
+            await taskService.update(id, data);
+            await fetchTasks();
+        } finally {
+            setUpdating(null);
+        }
     }
+
     async function deleteTask(id: number) {
-        await taskService.delete(id);
-        fetchTasks();
+        setDeleting(id);
+        try {
+            await taskService.delete(id);
+            await fetchTasks();
+        } finally {
+            setDeleting(null);
+        }
     }
+
     useEffect(() => {
         fetchTasks();
-    }, [])
-    return { tasks, loading, error, createTask, updateTask, deleteTask };
+    }, [fetchTasks]);
+
+    return {
+        tasks,
+        loading,
+        error,
+        creating,
+        updating,
+        deleting,
+        createTask,
+        updateTask,
+        deleteTask,
+    };
 }

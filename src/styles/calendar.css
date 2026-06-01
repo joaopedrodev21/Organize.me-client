@@ -1,0 +1,211 @@
+/* =============================================
+   Calendar Page
+   ============================================= */
+
+/* Navigation */
+.calendar-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding: 12px 16px;
+  border-radius: 1rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
+}
+
+.calendar-nav__btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: 1px solid var(--border-light);
+  background: var(--bg-elevated);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.calendar-nav__btn:hover {
+  background: var(--accent-bg-hover);
+  color: var(--accent-text);
+}
+
+.calendar-nav__title {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.calendar-today-btn {
+  padding: 8px 16px;
+  border-radius: 24px;
+  border: 1px solid var(--accent-border);
+  background: var(--accent-bg);
+  color: var(--accent-text);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.calendar-today-btn:hover {
+  background: var(--accent-bg-hover);
+}
+
+/* Grid */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.calendar-weekday {
+  padding: 10px 4px;
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+}
+
+/* Day Cell */
+.calendar-day {
+  min-height: 90px;
+  padding: 8px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background: var(--bg-surface);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.calendar-day:hover {
+  background: var(--bg-surface-hover);
+  border-color: var(--border-default);
+}
+
+.calendar-day--empty {
+  background: transparent;
+  min-height: 90px;
+}
+
+.calendar-day--today {
+  border-color: var(--accent-border);
+  background: var(--accent-bg);
+}
+
+.calendar-day--today .calendar-day__number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #2563eb;
+  color: white;
+  font-weight: 800;
+}
+
+.calendar-day--high {
+  border-color: rgba(239, 68, 68, 0.25);
+  background: rgba(239, 68, 68, 0.06);
+}
+
+.calendar-day--has-tasks {
+  border-color: var(--accent-border);
+}
+
+.calendar-day--done {
+  opacity: 0.6;
+}
+
+.calendar-day__number {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-tertiary);
+  line-height: 1;
+}
+
+.calendar-day__tasks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin-top: 2px;
+}
+
+.calendar-day__task-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.calendar-day__task-dot--high {
+  background: var(--high-priority);
+}
+
+.calendar-day__task-dot--low {
+  background: var(--low-priority);
+}
+
+.calendar-day__task-dot--done {
+  opacity: 0.4;
+}
+
+.calendar-day__more {
+  font-size: 0.65rem;
+  color: var(--text-faint);
+  font-weight: 700;
+}
+
+/* Task List Below Calendar */
+.calendar-task-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  transition: background 0.2s ease;
+}
+
+.calendar-task-item:hover {
+  background: var(--bg-surface-hover);
+}
+
+.calendar-task-item[data-overdue="true"] {
+  border-color: rgba(239, 68, 68, 0.2);
+  background: rgba(239, 68, 68, 0.04);
+}
+
+.calendar-task-item[data-done="true"] {
+  opacity: 0.55;
+}
+
+.calendar-task-item__badge {
+  display: inline-flex;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.calendar-task-item__badge--high {
+  background: rgba(239, 68, 68, 0.1);
+  color: #fca5a5;
+}
+
+.calendar-task-item__badge--low {
+  background: rgba(16, 185, 129, 0.1);
+  color: #6ee7b7;
+}

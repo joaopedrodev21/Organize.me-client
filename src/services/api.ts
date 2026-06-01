@@ -21,6 +21,7 @@ api.interceptors.response.use(
             localStorage.removeItem('user');
             window.location.href = '/login';
         }
+        console.error('API Error:', error.config?.url, error.response?.status, error.message);
         return Promise.reject(error);
     }
 )

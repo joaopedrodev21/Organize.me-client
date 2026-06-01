@@ -11,6 +11,7 @@ export function TaskForm({ onSubmit, onClose }: Props) {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [priority, setPriority] = useState<"LOW" | "HIGH">("LOW");
+    const [dueDate, setDueDate] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     async function handleSubmit(e: React.FormEvent) {
@@ -23,10 +24,12 @@ export function TaskForm({ onSubmit, onClose }: Props) {
                 title: title.trim(),
                 description: description.trim() || undefined,
                 priority,
+                dueDate: dueDate || undefined,
             });
             setTitle("");
             setDescription("");
             setPriority("LOW");
+            setDueDate("");
             onClose();
         } finally {
             setIsSubmitting(false);
@@ -72,6 +75,17 @@ export function TaskForm({ onSubmit, onClose }: Props) {
             </div>
 
             <div className="task-form__group">
+                <label className="task-form__label">Data de Vencimento</label>
+                <input
+                    className="task-form__input"
+                    type="date"
+                    value={dueDate}
+                    onChange={(e) => setDueDate(e.target.value)}
+                    disabled={isSubmitting}
+                />
+            </div>
+
+            <div className="task-form__group">
                 <label className="task-form__label">Prioridade</label>
                 <select
                     className="task-form__select"
@@ -80,7 +94,7 @@ export function TaskForm({ onSubmit, onClose }: Props) {
                     disabled={isSubmitting}
                 >
                     <option value="LOW">Normal</option>
-                    <option value="HIGH">Alta Prioridade 🔥</option>
+                    <option value="HIGH">Alta Prioridade!</option>
                 </select>
             </div>
 

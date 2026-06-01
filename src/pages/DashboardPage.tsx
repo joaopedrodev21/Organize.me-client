@@ -13,7 +13,7 @@ import { useAuth } from "../hooks/useAuth";
 import { useState, useMemo } from "react";
 
 export function DashboardPage() {
-  const { tasks, loading, error, createTask, updateTask, deleteTask } = useTasks();
+  const { tasks, loading, error, deleteTask, createTask, updateTask } = useTasks();
   const { user } = useAuth();
   const [showForm, setShowForm] = useState(false);
   const [priorityFilter, setPriorityFilter] = useState<PriorityFilter>("ALL");

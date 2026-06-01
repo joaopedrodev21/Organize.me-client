@@ -5,8 +5,8 @@
 .task-section {
   padding: 24px;
   border-radius: 1.5rem;
-  background: rgba(15, 23, 42, 0.95);
-  border: 1px solid rgba(148, 163, 184, 0.1);
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
@@ -15,7 +15,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+  border-bottom: 1px solid var(--border-light);
   padding-bottom: 16px;
   margin-bottom: 16px;
 }
@@ -24,7 +24,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  color: #e2e8f0;
+  color: var(--text-secondary);
   font-weight: 800;
   margin: 0;
   font-size: 0.88rem;
@@ -37,8 +37,8 @@
   width: 38px;
   height: 38px;
   border-radius: 12px;
-  background: rgba(59, 130, 246, 0.12);
-  color: #93c5fd;
+  background: var(--accent-bg);
+  color: var(--accent-text);
 }
 
 .task-section__badge {
@@ -48,8 +48,8 @@
   align-items: center;
   justify-content: center;
   border-radius: 9999px;
-  background: rgba(59, 130, 246, 0.1);
-  color: #60a5fa;
+  background: var(--accent-bg);
+  color: var(--accent-text-bright);
   font-size: 0.8rem;
   font-weight: 700;
 }

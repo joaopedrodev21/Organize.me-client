@@ -5,8 +5,8 @@
 .task-form {
   padding: 28px;
   border-radius: 2rem;
-  border: 1px solid rgba(148, 163, 184, 0.1);
-  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid var(--border-default);
+  background: var(--bg-card);
   box-shadow: 0 18px 50px rgba(0, 0, 0, 0.3);
   margin-bottom: 24px;
 }
@@ -16,7 +16,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 16px;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+  border-bottom: 1px solid var(--border-default);
   padding-bottom: 18px;
   margin-bottom: 24px;
 }
@@ -25,7 +25,7 @@
   margin: 0;
   font-size: 1.25rem;
   font-weight: 800;
-  color: #f8fafc;
+  color: var(--text-primary);
 }
 
 .task-form__close {
@@ -37,14 +37,14 @@
   border-radius: 14px;
   border: 1px solid transparent;
   background: transparent;
-  color: #64748b;
+  color: var(--text-dim);
   transition: background 0.2s ease, color 0.2s ease;
   font-size: 1.1rem;
 }
 
 .task-form__close:hover {
-  background: rgba(148, 163, 184, 0.1);
-  color: #e2e8f0;
+  background: var(--bg-surface);
+  color: var(--text-secondary);
 }
 
 .task-form__group {
@@ -55,7 +55,7 @@
 }
 
 .task-form__label {
-  color: #94a3b8;
+  color: var(--text-muted);
   font-weight: 700;
   font-size: 0.9rem;
 }
@@ -65,16 +65,16 @@
 .task-form__select {
   width: 100%;
   border-radius: 16px;
-  border: 1px solid rgba(148, 163, 184, 0.15);
-  background: rgba(30, 41, 59, 0.6);
-  color: #e2e8f0;
+  border: 1px solid var(--border-input);
+  background: var(--bg-input);
+  color: var(--text-secondary);
   padding: 14px 16px;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .task-form__input::placeholder,
 .task-form__textarea::placeholder {
-  color: #475569;
+  color: var(--text-faint);
 }
 
 .task-form__input:focus,
@@ -115,7 +115,7 @@
 }
 
 .task-form__button--primary {
-  background: linear-gradient(135deg, #1d4ed8, #2563eb);
+  background: var(--accent-gradient);
   color: white;
   box-shadow: 0 4px 16px rgba(37, 99, 235, 0.3);
 }
@@ -134,12 +134,12 @@
 
 .task-form__button--secondary {
   background: transparent;
-  color: #94a3b8;
-  border: 1px solid rgba(148, 163, 184, 0.15);
+  color: var(--text-muted);
+  border: 1px solid var(--border-input);
 }
 
 .task-form__button--secondary:hover {
-  background: rgba(148, 163, 184, 0.06);
-  color: #e2e8f0;
+  background: var(--bg-surface);
+  color: var(--text-secondary);
   transform: translateY(-1px);
 }

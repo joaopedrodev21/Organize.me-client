@@ -6,8 +6,8 @@
   padding: 24px;
   margin-bottom: 0;
   border-radius: 2rem;
-  border: 1px solid rgba(148, 163, 184, 0.1);
-  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid var(--border-default);
+  background: var(--bg-card);
 }
 
 .task-filters__row {
@@ -19,7 +19,7 @@
 }
 
 .task-filters__label {
-  color: #64748b;
+  color: var(--text-dim);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.18em;
@@ -40,8 +40,8 @@
   padding: 8px 14px;
   border-radius: 24px;
   border: 1px solid transparent;
-  background: rgba(30, 41, 59, 0.6);
-  color: #94a3b8;
+  background: var(--bg-surface);
+  color: var(--text-muted);
   font-size: 0.8rem;
   font-weight: 700;
   transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
@@ -49,14 +49,14 @@
 
 .task-filters__priority-button:hover,
 .task-filters__status-button:hover {
-  background: rgba(59, 130, 246, 0.08);
-  color: #e2e8f0;
+  background: var(--accent-bg);
+  color: var(--text-secondary);
 }
 
 .task-filters__priority-button--active {
-  background: rgba(59, 130, 246, 0.15);
-  border-color: rgba(59, 130, 246, 0.3);
-  color: #93c5fd;
+  background: var(--accent-bg-hover);
+  border-color: var(--accent-border);
+  color: var(--accent-text);
 }
 
 .task-filters__status {
@@ -65,8 +65,8 @@
   gap: 8px;
   padding: 6px;
   border-radius: 24px;
-  border: 1px solid rgba(148, 163, 184, 0.1);
-  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--border-default);
+  background: var(--bg-surface);
 }
 
 .task-filters__status-button {
@@ -75,16 +75,16 @@
   justify-content: center;
   background: transparent;
   border: none;
-  color: #64748b;
+  color: var(--text-dim);
 }
 
 .task-filters__status-button--active {
-  background: rgba(30, 41, 59, 0.8);
-  color: #e2e8f0;
+  background: var(--bg-elevated);
+  color: var(--text-secondary);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .task-filters__count {
-  color: #475569;
+  color: var(--text-faint);
   font-size: 0.75rem;
 }

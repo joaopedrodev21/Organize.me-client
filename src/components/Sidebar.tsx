@@ -1,7 +1,8 @@
 import { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { SidebarProgress } from './SidebarProgress';
-import { LayoutDashboard, CheckSquare, Calendar, BarChart3, Settings, LogOut, ChevronLeft, ChevronRight, Search } from 'lucide-react';
+import { LayoutDashboard, Calendar, LogOut, ChevronLeft, ChevronRight } from 'lucide-react';
 import type { Task } from '../types';
 import '../styles/sidebar.css';
 
@@ -11,8 +12,9 @@ interface SidebarProps {
 
 export function Sidebar({ tasks }: SidebarProps) {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [activeItem, setActiveItem] = useState('dashboard');
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const initials = user?.name
     ?.split(' ')
@@ -21,16 +23,7 @@ export function Sidebar({ tasks }: SidebarProps) {
     .toUpperCase()
     .slice(0, 2) || '?';
 
-  const menuItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
-    { id: 'tasks', label: 'Tarefas', icon: CheckSquare },
-    { id: 'calendar', label: 'Calendário', icon: Calendar },
-    { id: 'stats', label: 'Estatísticas', icon: BarChart3 },
-  ];
-
-  const bottomItems = [
-    { id: 'settings', label: 'Configurações', icon: Settings },
-  ];
+  const currentPath = location.pathname;
 
   return (
     <aside
@@ -58,20 +51,14 @@ export function Sidebar({ tasks }: SidebarProps) {
         </button>
       </div>
 
-      {/* ── Search (only when expanded) ── */}
-      {!isCollapsed && (
-        <div className="sidebar__search">
-          <Search size={16} className="sidebar__search-icon" />
-          <input
-            type="text"
-            placeholder="Buscar..."
-            className="sidebar__search-input"
-          />
-        </div>
-      )}
-
-      {/* ── User Profile ── */}
-      <div className="sidebar__profile">
+      {/* ── User Profile (clickable) ── */}
+      <button
+        className="sidebar__profile"
+        onClick={() => navigate('/profile')}
+        title="Meu perfil"
+        type="button"
+        style={{ cursor: 'pointer', border: 'none', width: '100%', textAlign: 'left' }}
+      >
         <div className="sidebar__avatar">
           <span>{initials}</span>
         </div>
@@ -81,7 +68,7 @@ export function Sidebar({ tasks }: SidebarProps) {
             <span className="sidebar__profile-email">{user?.email}</span>
           </div>
         )}
-      </div>
+      </button>
 
       {/* ── Divider ── */}
       <div className="sidebar__divider" />
@@ -89,25 +76,32 @@ export function Sidebar({ tasks }: SidebarProps) {
       {/* ── Navigation ── */}
       <nav className="sidebar__nav" aria-label="Menu principal">
         <span className="sidebar__nav-label">Menu</span>
-        {menuItems.map((item) => {
-          const Icon = item.icon;
-          const isActive = activeItem === item.id;
-          return (
-            <button
-              key={item.id}
-              className={`sidebar__item ${isActive ? 'sidebar__item--active' : ''}`}
-              onClick={() => setActiveItem(item.id)}
-              title={item.label}
-              type="button"
-            >
-              <span className={`sidebar__item-icon ${isActive ? 'sidebar__item-icon--active' : ''}`}>
-                <Icon size={18} strokeWidth={2} />
-              </span>
-              {!isCollapsed && <span className="sidebar__item-label">{item.label}</span>}
-              {isActive && !isCollapsed && <span className="sidebar__item-indicator" />}
-            </button>
-          );
-        })}
+
+        <button
+          className={`sidebar__item ${currentPath === '/dashboard' ? 'sidebar__item--active' : ''}`}
+          onClick={() => navigate('/dashboard')}
+          title="Dashboard"
+          type="button"
+        >
+          <span className={`sidebar__item-icon ${currentPath === '/dashboard' ? 'sidebar__item-icon--active' : ''}`}>
+            <LayoutDashboard size={18} strokeWidth={2} />
+          </span>
+          {!isCollapsed && <span className="sidebar__item-label">Dashboard</span>}
+          {currentPath === '/dashboard' && !isCollapsed && <span className="sidebar__item-indicator" />}
+        </button>
+
+        <button
+          className={`sidebar__item ${currentPath === '/calendar' ? 'sidebar__item--active' : ''}`}
+          onClick={() => navigate('/calendar')}
+          title="Calendário"
+          type="button"
+        >
+          <span className={`sidebar__item-icon ${currentPath === '/calendar' ? 'sidebar__item-icon--active' : ''}`}>
+            <Calendar size={18} strokeWidth={2} />
+          </span>
+          {!isCollapsed && <span className="sidebar__item-label">Calendário</span>}
+          {currentPath === '/calendar' && !isCollapsed && <span className="sidebar__item-indicator" />}
+        </button>
       </nav>
 
       {/* ── Divider ── */}
@@ -119,24 +113,6 @@ export function Sidebar({ tasks }: SidebarProps) {
       {/* ── Bottom Section ── */}
       <div className="sidebar__bottom">
         <div className="sidebar__divider" />
-
-        {bottomItems.map((item) => {
-          const Icon = item.icon;
-          return (
-            <button
-              key={item.id}
-              className={`sidebar__item ${activeItem === item.id ? 'sidebar__item--active' : ''}`}
-              onClick={() => setActiveItem(item.id)}
-              title={item.label}
-              type="button"
-            >
-              <span className={`sidebar__item-icon ${activeItem === item.id ? 'sidebar__item-icon--active' : ''}`}>
-                <Icon size={18} strokeWidth={2} />
-              </span>
-              {!isCollapsed && <span className="sidebar__item-label">{item.label}</span>}
-            </button>
-          );
-        })}
 
         <button
           className="sidebar__logout"

@@ -8,15 +8,15 @@
   gap: 16px;
   padding: 20px;
   border-radius: 1.25rem;
-  border: 1px solid rgba(148, 163, 184, 0.08);
-  background: rgba(30, 41, 59, 0.4);
+  border: 1px solid var(--border-light);
+  background: var(--bg-surface);
   transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
 .task-card:hover {
   transform: translateY(-1px);
-  border-color: rgba(59, 130, 246, 0.15);
-  background: rgba(30, 41, 59, 0.6);
+  border-color: var(--accent-border);
+  background: var(--bg-surface-hover);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
 }
 
@@ -48,7 +48,7 @@
   width: 30px;
   height: 30px;
   border-radius: 12px;
-  border: 2px solid rgba(148, 163, 184, 0.2);
+  border: 2px solid var(--border-input);
   background: rgba(15, 23, 42, 0.6);
   color: transparent;
   transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
@@ -71,22 +71,22 @@
   display: inline;
   font-size: 0.85rem;
   font-weight: 700;
-  color: #f1f5f9;
+  color: var(--text-secondary);
   cursor: pointer;
 }
 
 .task-card__title:hover {
-  color: #93c5fd;
+  color: var(--accent-text);
 }
 
 .task-card__title--done {
-  color: #64748b;
+  color: var(--text-dim);
   text-decoration: line-through;
   cursor: default;
 }
 
 .task-card__title--done:hover {
-  color: #64748b;
+  color: var(--text-dim);
 }
 
 .task-card__tag {
@@ -104,7 +104,7 @@
 
 .task-card__description {
   margin-top: 6px;
-  color: #64748b;
+  color: var(--text-dim);
   font-size: 0.78rem;
   line-height: 1.55;
 }
@@ -114,7 +114,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  color: #475569;
+  color: var(--text-faint);
   font-size: 0.72rem;
 }
 
@@ -127,12 +127,12 @@
   border-radius: 14px;
   border: 1px solid transparent;
   background: transparent;
-  color: #475569;
+  color: var(--text-faint);
   transition: background 0.2s ease, color 0.2s ease;
   flex-shrink: 0;
 }
 
 .task-card__delete:hover {
-  background: rgba(239, 68, 68, 0.1);
-  color: #f87171;
+  background: var(--danger-bg);
+  color: var(--danger-text-hover);
 }

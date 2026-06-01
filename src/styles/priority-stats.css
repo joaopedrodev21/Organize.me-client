@@ -4,8 +4,8 @@
 
 .priority-stats {
   border-radius: 1.25rem;
-  border: 1px solid rgba(148, 163, 184, 0.1);
-  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid var(--border-default);
+  background: var(--bg-card);
   padding: 20px;
 }
 
@@ -23,14 +23,14 @@
   align-items: center;
   justify-content: center;
   border-radius: 8px;
-  background: rgba(59, 130, 246, 0.12);
-  color: #60a5fa;
+  background: var(--accent-bg);
+  color: var(--accent-text-bright);
 }
 
 .priority-stats__title {
   font-size: 0.88rem;
   font-weight: 700;
-  color: #e2e8f0;
+  color: var(--text-secondary);
 }
 
 .priority-stats__body {
@@ -57,7 +57,7 @@
 .priority-stats__chart-total {
   font-size: 1.25rem;
   font-weight: 800;
-  color: #f8fafc;
+  color: var(--text-primary);
 }
 
 .priority-stats__bars {
@@ -85,7 +85,7 @@
   gap: 6px;
   font-size: 0.78rem;
   font-weight: 600;
-  color: #94a3b8;
+  color: var(--text-muted);
 }
 
 .priority-stats__dot {
@@ -96,17 +96,17 @@
 }
 
 .priority-stats__dot--high {
-  background: #ef4444;
+  background: var(--high-priority);
 }
 
 .priority-stats__dot--low {
-  background: #10b981;
+  background: var(--low-priority);
 }
 
 .priority-stats__bar-value {
   font-size: 0.75rem;
   font-weight: 700;
-  color: #cbd5e1;
+  color: var(--text-tertiary);
 }
 
 .priority-stats__bar-track {
@@ -123,9 +123,9 @@
 }
 
 .priority-stats__bar-fill--high {
-  background: linear-gradient(90deg, #dc2626, #ef4444);
+  background: linear-gradient(90deg, #dc2626, var(--high-priority));
 }
 
 .priority-stats__bar-fill--low {
-  background: linear-gradient(90deg, #059669, #10b981);
+  background: linear-gradient(90deg, #059669, var(--low-priority));
 }
