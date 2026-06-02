@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import { Eye, EyeOff } from "lucide-react";
 import axios from "axios";
 import "./AuthPage.css";
 
 export function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState("");
     const { login } = useAuth();
     const navigate = useNavigate();
@@ -74,13 +76,24 @@ export function LoginPage() {
 
                         <div className="auth-field">
                             <label>Senha</label>
-                            <input
-                                className="auth-input"
-                                type="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                required
-                            />
+                            <div className="auth-password-wrapper">
+                                <input
+                                    className="auth-input"
+                                    type={showPassword ? "text" : "password"}
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                />
+                                <button
+                                    type="button"
+                                    className="auth-password-toggle"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    tabIndex={-1}
+                                    aria-label={showPassword ? "Esconder senha" : "Mostrar senha"}
+                                >
+                                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                                </button>
+                            </div>
                         </div>
 
                         <button type="submit" className="auth-button">
