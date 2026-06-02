@@ -70,8 +70,8 @@
   --text-secondary: #1e293b;
   --text-tertiary: #334155;
   --text-muted: #475569;
-  --text-dim: #64748b;
-  --text-faint: #94a3b8;
+  --text-dim: #475569;
+  --text-faint: #64748b;
 
   /* Borders */
   --border-default: rgba(100, 116, 139, 0.15);

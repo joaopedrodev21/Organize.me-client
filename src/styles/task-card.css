@@ -118,6 +118,67 @@
   font-size: 0.72rem;
 }
 
+.task-card__checkbox-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.task-card__confirm {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 5px;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.task-card__confirm-text {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.task-card__confirm-yes,
+.task-card__confirm-no {
+  padding: 3px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border-light);
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+  line-height: 1.4;
+}
+
+.task-card__confirm-yes {
+  background: rgba(37, 99, 235, 0.15);
+  color: #93c5fd;
+  border-color: rgba(37, 99, 235, 0.3);
+}
+
+.task-card__confirm-yes:hover {
+  background: rgba(37, 99, 235, 0.3);
+  color: #bfdbfe;
+}
+
+.task-card__confirm-no {
+  background: transparent;
+  color: var(--text-faint);
+  border-color: transparent;
+}
+
+.task-card__confirm-no:hover {
+  background: var(--danger-bg);
+  color: var(--danger-text-hover);
+  border-color: transparent;
+}
+
 .task-card__delete {
   width: 40px;
   height: 40px;

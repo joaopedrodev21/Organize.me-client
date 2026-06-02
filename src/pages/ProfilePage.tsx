@@ -73,10 +73,10 @@ export function ProfilePage() {
                       {initials}
                     </div>
                     <div>
-                      <h2 style={{ margin: 0, fontSize: "1.25rem", fontWeight: 800, color: "#f8fafc" }}>
+                      <h2 style={{ margin: 0, fontSize: "1.25rem", fontWeight: 800, color: "var(--text-primary)" }}>
                         {user?.name}
                       </h2>
-                      <p style={{ margin: "4px 0 0", color: "#64748b", fontSize: "0.85rem" }}>
+                      <p style={{ margin: "4px 0 0", color: "var(--text-muted)", fontSize: "0.85rem" }}>
                         {user?.email}
                       </p>
                     </div>
@@ -121,7 +121,7 @@ export function ProfilePage() {
 
                 {/* ── Stats Mini Card ── */}
                 <div className="dashboard-card" style={{ padding: "24px" }}>
-                  <h3 style={{ margin: "0 0 16px", fontSize: "0.88rem", fontWeight: 700, color: "#e2e8f0" }}>
+                  <h3 style={{ margin: "0 0 16px", fontSize: "0.88rem", fontWeight: 700, color: "var(--text-secondary)" }}>
                     Resumo das tarefas
                   </h3>
                   <div className="profile-stats-grid">
@@ -148,7 +148,7 @@ export function ProfilePage() {
               <div className="dashboard-column" style={{ gap: "24px" }}>
                 {/* ── Theme Settings ── */}
                 <div className="dashboard-card" style={{ padding: "24px" }}>
-                  <h3 style={{ margin: "0 0 20px", fontSize: "0.88rem", fontWeight: 700, color: "#e2e8f0" }}>
+                  <h3 style={{ margin: "0 0 20px", fontSize: "0.88rem", fontWeight: 700, color: "var(--text-secondary)" }}>
                     Personalização
                   </h3>
 
@@ -171,10 +171,10 @@ export function ProfilePage() {
                         {theme === "dark" ? <Moon size={20} /> : <Sun size={20} />}
                       </span>
                       <div style={{ flex: 1 }}>
-                        <div style={{ fontWeight: 700, fontSize: "0.88rem", color: "#e2e8f0" }}>
+                        <div style={{ fontWeight: 700, fontSize: "0.88rem", color: "var(--text-secondary)" }}>
                           Tema {theme === "dark" ? "Escuro" : "Claro"}
                         </div>
-                        <div style={{ fontSize: "0.78rem", color: "#64748b", marginTop: "2px" }}>
+                        <div style={{ fontSize: "0.78rem", color: "var(--text-muted)", marginTop: "2px" }}>
                           Alterne entre modo claro e escuro
                         </div>
                       </div>
@@ -191,7 +191,7 @@ export function ProfilePage() {
                     </div>
                   </div>
 
-                  <p style={{ marginTop: "16px", fontSize: "0.78rem", color: "#475569", lineHeight: 1.6 }}>
+                  <p style={{ marginTop: "16px", fontSize: "0.78rem", color: "var(--text-muted)", lineHeight: 1.6 }}>
                     {theme === "dark"
                       ? "Você está usando o tema escuro. Ideal para ambientes com pouca luz."
                       : "Você está usando o tema claro. Ideal para ambientes bem iluminados."}

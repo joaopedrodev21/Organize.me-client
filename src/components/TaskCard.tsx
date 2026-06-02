@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Task, UpdateTaskData } from "../types"
+import { formatDate } from "../utils/formatDate";
 import '../styles/task-card.css';
 
 interface Props {
@@ -13,6 +14,7 @@ export function TaskCard({ task, onToggle, onDelete, onUpdate }: Props) {
     const [editing, setEditing] = useState(false);
     const [title, setTitle] = useState(task.title);
     const [isUpdating, setIsUpdating] = useState(false);
+    const [showConfirm, setShowConfirm] = useState(false);
 
     async function handleSave() {
         if(title.trim() && title !== task.title) {
@@ -26,20 +28,47 @@ export function TaskCard({ task, onToggle, onDelete, onUpdate }: Props) {
         setEditing(false);
     }
 
-    const dueDate = task.dueDate ? new Date(task.dueDate).toLocaleDateString('pt-BR') : null;
-    const createdDate = new Date(task.createdAt).toLocaleDateString('pt-BR');
+    const dueDate = task.dueDate ? formatDate(task.dueDate) : null;
+    const createdDate = formatDate(task.createdAt);
 
     return (
         <div className={`task-card ${task.done ? 'task-card--done' : ''}`}>
-            <label className="task-card__checkbox">
-                <input
-                    type="checkbox"
-                    checked={task.done}
-                    onChange={(e) => onToggle(e.target.checked)}
-                    disabled={isUpdating}
-                />
-                <span className="task-card__box">{task.done ? '✓' : ''}</span>
-            </label>
+            <div className="task-card__checkbox-wrapper">
+                <label className="task-card__checkbox">
+                    <input
+                        type="checkbox"
+                        checked={task.done}
+                        onChange={(e) => {
+                            if (e.target.checked && !task.done) {
+                                setShowConfirm(true);
+                            } else {
+                                onToggle(e.target.checked);
+                            }
+                        }}
+                        disabled={isUpdating}
+                    />
+                    <span className="task-card__box">{task.done ? '✓' : ''}</span>
+                </label>
+                {showConfirm && !task.done && (
+                    <div className="task-card__confirm">
+                        <span className="task-card__confirm-text">Concluir?</span>
+                        <button
+                            type="button"
+                            className="task-card__confirm-yes"
+                            onClick={() => { onToggle(true); setShowConfirm(false); }}
+                        >
+                            Sim
+                        </button>
+                        <button
+                            type="button"
+                            className="task-card__confirm-no"
+                            onClick={() => setShowConfirm(false)}
+                        >
+                            Não
+                        </button>
+                    </div>
+                )}
+            </div>
 
             <div className="task-card__content">
                 {editing ? (
@@ -64,7 +93,7 @@ export function TaskCard({ task, onToggle, onDelete, onUpdate }: Props) {
                         {task.title}
                         {task.priority === "HIGH" && (
                             <span className="task-card__tag">
-                                🔥 Alta
+                                Alta
                             </span>
                         )}
                     </span>
@@ -78,7 +107,7 @@ export function TaskCard({ task, onToggle, onDelete, onUpdate }: Props) {
                     {dueDate && (
                         <span>📅 {dueDate}</span>
                     )}
-                    <span>📌 {createdDate}</span>
+                    <span>{createdDate}</span>
                 </div>
             </div>
 

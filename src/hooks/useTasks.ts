@@ -15,8 +15,7 @@ export function useTasks() {
         setLoading(true);
         setError(null);
         try{
-            const result = await taskService.getAll();
-            const tasksData = Array.isArray(result) ? result : result.data;
+            const tasksData = await taskService.getAll();
             setTasks(tasksData ?? []);
         } catch (err: unknown) {
             if (axios.isAxiosError(err)) {

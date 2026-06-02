@@ -1,7 +1,5 @@
 import api from './api';
-import type { Task, CreateTaskData, UpdateTaskData, PaginatedResponse } from '../types';
-
-type TasksResponse = Task[] | PaginatedResponse;
+import type { Task, CreateTaskData, UpdateTaskData } from '../types';
 
 export const taskService = {
     async getAll(params?:{
@@ -11,9 +9,10 @@ export const taskService = {
         priority?: string;
         sortBy?: string;
         order?: string;
-    }): Promise<TasksResponse> {
+    }): Promise<Task[]> {
         const { data } = await api.get('/tasks', { params });
-        return data;
+        // O servidor retorna { items: Task[], meta: {...} } (formato paginado)
+        return Array.isArray(data) ? data : (data.items ?? []);
     }, 
     async getById(id: number): Promise<Task> {
         const { data } = await api.get(`/tasks/${id}`);

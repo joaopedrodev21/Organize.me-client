@@ -12,11 +12,68 @@ export function TaskForm({ onSubmit, onClose }: Props) {
     const [description, setDescription] = useState("");
     const [priority, setPriority] = useState<"LOW" | "HIGH">("LOW");
     const [dueDate, setDueDate] = useState("");
+    const [dateError, setDateError] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    function formatDueDate(value: string): string {
+        // Remove tudo que não é dígito
+        const digits = value.replace(/\D/g, "");
+        
+        // Aplica a máscara DD/MM/AAAA
+        let formatted = "";
+        if (digits.length <= 2) {
+            formatted = digits;
+        } else if (digits.length <= 4) {
+            formatted = `${digits.slice(0, 2)}/${digits.slice(2)}`;
+        } else {
+            formatted = `${digits.slice(0, 2)}/${digits.slice(2, 4)}/${digits.slice(4, 8)}`;
+        }
+
+        return formatted;
+    }
+
+    function handleDateChange(value: string) {
+        setDueDate(formatDueDate(value));
+        setDateError("");
+    }
+
+    function parseDateToISO(dateStr: string): string | undefined {
+        if (!dateStr) return undefined;
+
+        const [day, month, year] = dateStr.split("/");
+        if (!day || !month || !year) {
+            setDateError("Formato inválido. Use DD/MM/AAAA");
+            return undefined;
+        }
+
+        const d = parseInt(day, 10);
+        const m = parseInt(month, 10) - 1; // mês 0-indexed
+        const y = parseInt(year, 10);
+
+        // Validação básica
+        if (d < 1 || d > 31) {
+            setDateError("Dia inválido");
+            return undefined;
+        }
+        if (m < 0 || m > 11) {
+            setDateError("Mês inválido");
+            return undefined;
+        }
+        if (year.length !== 4 || isNaN(y)) {
+            setDateError("Ano inválido. Use 4 dígitos");
+            return undefined;
+        }
+
+        // Constrói data como meio-dia UTC para evitar problemas de fuso
+        return `${year}-${String(m + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}T12:00:00.000Z`;
+    }
 
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
         if (!title.trim()) return;
+
+        const isoDate = dueDate ? parseDateToISO(dueDate) : undefined;
+        if (dueDate && !isoDate) return; // erro de validação, não envia
         
         try {
             setIsSubmitting(true);
@@ -24,7 +81,7 @@ export function TaskForm({ onSubmit, onClose }: Props) {
                 title: title.trim(),
                 description: description.trim() || undefined,
                 priority,
-                dueDate: dueDate || undefined,
+                dueDate: isoDate,
             });
             setTitle("");
             setDescription("");
@@ -77,12 +134,17 @@ export function TaskForm({ onSubmit, onClose }: Props) {
             <div className="task-form__group">
                 <label className="task-form__label">Data de Vencimento</label>
                 <input
-                    className="task-form__input"
-                    type="date"
+                    className={`task-form__input ${dateError ? 'task-form__input--error' : ''}`}
+                    type="text"
+                    placeholder="DD/MM/AAAA"
                     value={dueDate}
-                    onChange={(e) => setDueDate(e.target.value)}
+                    onChange={(e) => handleDateChange(e.target.value)}
+                    maxLength={10}
                     disabled={isSubmitting}
                 />
+                {dateError && (
+                    <span className="task-form__error">{dateError}</span>
+                )}
             </div>
 
             <div className="task-form__group">

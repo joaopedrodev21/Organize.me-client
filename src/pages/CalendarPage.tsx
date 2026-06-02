@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { Sidebar } from "../components/Sidebar";
 import { useTasks } from "../hooks/useTasks";
+import { formatDate } from "../utils/formatDate";
 import { ChevronLeft, ChevronRight, Calendar } from "lucide-react";
 import "../styles/dashboard-layout.css";
 import "../styles/calendar.css";
@@ -174,7 +175,7 @@ export function CalendarPage() {
                     .filter(t => t.dueDate)
                     .sort((a, b) => new Date(a.dueDate!).getTime() - new Date(b.dueDate!).getTime())
                     .map(task => {
-                      const due = new Date(task.dueDate!).toLocaleDateString("pt-BR");
+                      const due = formatDate(task.dueDate!);
                       const isOverdue = !task.done && new Date(task.dueDate!) < new Date();
                       return (
                         <div
@@ -190,10 +191,10 @@ export function CalendarPage() {
                           >
                             {task.priority === "HIGH" ? "Alta" : "Baixa"}
                           </span>
-                          <span style={{ flex: 1, color: task.done ? "#64748b" : "#e2e8f0", textDecoration: task.done ? "line-through" : "none" }}>
+                          <span style={{ flex: 1, color: task.done ? "var(--text-dim)" : "var(--text-secondary)", textDecoration: task.done ? "line-through" : "none" }}>
                             {task.title}
                           </span>
-                          <span style={{ color: isOverdue ? "#f87171" : "#64748b", fontSize: "0.82rem", fontWeight: 600 }}>
+                          <span style={{ color: isOverdue ? "var(--danger-text-hover)" : "var(--text-dim)", fontSize: "0.82rem", fontWeight: 600 }}>
                             {due}
                           </span>
                         </div>
