@@ -179,6 +179,144 @@
   border-color: transparent;
 }
 
+/* ── Edit Button ── */
+.task-card__edit-btn {
+  margin-top: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-light);
+  background: transparent;
+  color: var(--text-faint);
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.task-card__edit-btn:hover {
+  background: var(--accent-bg);
+  color: var(--accent-text);
+}
+
+/* ── Edit Mode ── */
+.task-card--editing {
+  border-color: var(--accent-border);
+  background: var(--bg-elevated);
+}
+
+.task-card__edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.task-card__edit-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.task-card__edit-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.task-card__edit-input,
+.task-card__edit-textarea,
+.task-card__edit-select {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--border-input);
+  background: var(--bg-input);
+  color: var(--text-secondary);
+  padding: 10px 12px;
+  font-size: 0.82rem;
+  transition: border-color 0.2s ease;
+  outline: none;
+}
+
+.task-card__edit-input:focus,
+.task-card__edit-textarea:focus,
+.task-card__edit-select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.task-card__edit-input--error {
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+.task-card__edit-error {
+  font-size: 0.7rem;
+  color: var(--danger-text);
+  font-weight: 600;
+}
+
+.task-card__edit-textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.task-card__edit-select {
+  appearance: none;
+  cursor: pointer;
+}
+
+.task-card__edit-row {
+  display: flex;
+  gap: 12px;
+}
+
+.task-card__edit-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.task-card__edit-save,
+.task-card__edit-cancel {
+  padding: 8px 18px;
+  border-radius: 10px;
+  border: none;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.task-card__edit-save {
+  background: var(--accent-gradient);
+  color: white;
+}
+
+.task-card__edit-save:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.task-card__edit-save:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.task-card__edit-cancel {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border-input);
+}
+
+.task-card__edit-cancel:hover {
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+}
+
 .task-card__delete {
   width: 40px;
   height: 40px;

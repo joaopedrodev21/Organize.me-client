@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { Sidebar } from "../components/Sidebar";
 import { useTasks } from "../hooks/useTasks";
 import { formatDate } from "../utils/formatDate";
-import { ChevronLeft, ChevronRight, Calendar } from "lucide-react";
+import { ChevronLeft, ChevronRight, Calendar, AlertTriangle } from "lucide-react";
 import "../styles/dashboard-layout.css";
 import "../styles/calendar.css";
 
@@ -18,13 +18,18 @@ export function CalendarPage() {
   const [currentMonth, setCurrentMonth] = useState(today.getMonth());
   const [currentYear, setCurrentYear] = useState(today.getFullYear());
 
+  const overdueTasks = useMemo(() => {
+    return tasks.filter(t => t.dueDate && !t.done && new Date(t.dueDate) < new Date());
+  }, [tasks]);
+
   const tasksByDate = useMemo(() => {
-    const map = new Map<string, { title: string; priority: "LOW" | "HIGH"; done: boolean }[]>();
+    const map = new Map<string, { title: string; priority: "LOW" | "HIGH"; done: boolean; overdue: boolean }[]>();
     tasks.forEach(task => {
       if (!task.dueDate) return;
       const dateKey = task.dueDate.split("T")[0];
+      const isOverdue = !task.done && new Date(task.dueDate) < new Date();
       if (!map.has(dateKey)) map.set(dateKey, []);
-      map.get(dateKey)!.push({ title: task.title, priority: task.priority, done: task.done });
+      map.get(dateKey)!.push({ title: task.title, priority: task.priority, done: task.done, overdue: isOverdue });
     });
     return map;
   }, [tasks]);
@@ -83,6 +88,21 @@ export function CalendarPage() {
 
         <div className="dashboard-main">
           <main>
+            {/* ── Overdue Alert ── */}
+            {overdueTasks.length > 0 && (
+              <div className="calendar-overdue-alert">
+                <AlertTriangle size={18} />
+                <div className="calendar-overdue-alert__content">
+                  <span className="calendar-overdue-alert__title">
+                    {overdueTasks.length} tarefa{overdueTasks.length > 1 ? "s" : ""} atrasada{overdueTasks.length > 1 ? "s" : ""}
+                  </span>
+                  <span className="calendar-overdue-alert__subtitle">
+                    Tarefas com prazo expirado que ainda não foram concluídas
+                  </span>
+                </div>
+              </div>
+            )}
+
             <div className="dashboard-card" style={{ padding: "32px" }}>
               <div className="dashboard-card__top">
                 <div>
@@ -125,6 +145,7 @@ export function CalendarPage() {
                   const dateKey = formatDateKey(day);
                   const dayTasks = tasksByDate.get(dateKey) || [];
                   const hasHighPriority = dayTasks.some(t => t.priority === "HIGH" && !t.done);
+                  const hasOverdue = dayTasks.some(t => t.overdue);
                   const hasTasks = dayTasks.length > 0;
                   const allDone = dayTasks.length > 0 && dayTasks.every(t => t.done);
 
@@ -132,10 +153,10 @@ export function CalendarPage() {
                     <div
                       key={dateKey}
                       className={`calendar-day ${isToday(day) ? "calendar-day--today" : ""} ${
-                        hasHighPriority ? "calendar-day--high" : ""
+                        hasHighPriority && !allDone ? "calendar-day--high" : ""
                       } ${allDone ? "calendar-day--done" : ""} ${
-                        hasTasks && !hasHighPriority && !allDone ? "calendar-day--has-tasks" : ""
-                      }`}
+                        hasTasks && !hasHighPriority && !allDone && !hasOverdue ? "calendar-day--has-tasks" : ""
+                      } ${hasOverdue ? "calendar-day--overdue" : ""}`}
                     >
                       <span className="calendar-day__number">{day}</span>
                       {hasTasks && (
@@ -145,7 +166,9 @@ export function CalendarPage() {
                               key={i}
                               className={`calendar-day__task-dot ${
                                 t.priority === "HIGH" ? "calendar-day__task-dot--high" : "calendar-day__task-dot--low"
-                              } ${t.done ? "calendar-day__task-dot--done" : ""}`}
+                              } ${t.done ? "calendar-day__task-dot--done" : ""} ${
+                                t.overdue ? "calendar-day__task-dot--overdue" : ""
+                              }`}
                               title={t.title}
                             />
                           ))}
@@ -180,10 +203,11 @@ export function CalendarPage() {
                       return (
                         <div
                           key={task.id}
-                          className="calendar-task-item"
+                          className={`calendar-task-item ${isOverdue ? "calendar-task-item--overdue" : ""}`}
                           data-overdue={isOverdue}
                           data-done={task.done}
                         >
+                          {isOverdue && <AlertTriangle size={14} className="calendar-task-item__warning" />}
                           <span
                             className={`calendar-task-item__badge ${
                               task.priority === "HIGH" ? "calendar-task-item__badge--high" : "calendar-task-item__badge--low"
@@ -191,10 +215,11 @@ export function CalendarPage() {
                           >
                             {task.priority === "HIGH" ? "Alta" : "Baixa"}
                           </span>
-                          <span style={{ flex: 1, color: task.done ? "var(--text-dim)" : "var(--text-secondary)", textDecoration: task.done ? "line-through" : "none" }}>
+                          <span style={{ flex: 1, color: task.done ? "var(--text-dim)" : isOverdue ? "var(--danger-text)" : "var(--text-secondary)", textDecoration: task.done ? "line-through" : "none" }}>
                             {task.title}
                           </span>
-                          <span style={{ color: isOverdue ? "var(--danger-text-hover)" : "var(--text-dim)", fontSize: "0.82rem", fontWeight: 600 }}>
+                          <span style={{ color: isOverdue ? "var(--danger-text-hover)" : "var(--text-dim)", fontSize: "0.82rem", fontWeight: 600, display: "flex", alignItems: "center", gap: "4px" }}>
+                            {isOverdue && "⏰ "}
                             {due}
                           </span>
                         </div>

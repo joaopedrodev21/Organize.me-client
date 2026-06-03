@@ -1,11 +1,14 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, useSearchParams, Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { Eye, EyeOff } from "lucide-react";
 import axios from "axios";
 import "./AuthPage.css";
 
 export function LoginPage() {
+    const [searchParams] = useSearchParams();
+    const resetSuccess = searchParams.get("reset") === "success";
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
@@ -60,6 +63,11 @@ export function LoginPage() {
                         </p>
                     </div>
 
+                    {resetSuccess && (
+                        <div className="auth-success">
+                            Senha redefinida com sucesso! Faça login com sua nova senha.
+                        </div>
+                    )}
                     {error && <div className="auth-error">{error}</div>}
 
                     <div className="auth-form">
@@ -94,6 +102,10 @@ export function LoginPage() {
                                     {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                                 </button>
                             </div>
+                        </div>
+
+                        <div className="auth-forgot-link">
+                            <Link to="/forgot-password" className="auth-link">Esqueceu a senha?</Link>
                         </div>
 
                         <button type="submit" className="auth-button">

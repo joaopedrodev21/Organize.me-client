@@ -209,3 +209,63 @@
   background: rgba(16, 185, 129, 0.1);
   color: #6ee7b7;
 }
+
+/* ── Overdue Alert Banner ── */
+.calendar-overdue-alert {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  border-radius: 1rem;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  color: #fca5a5;
+  animation: fadeIn 0.3s ease;
+}
+
+.calendar-overdue-alert__content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.calendar-overdue-alert__title {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #fca5a5;
+}
+
+.calendar-overdue-alert__subtitle {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #f87171;
+  opacity: 0.8;
+}
+
+/* ── Calendar Day Overdue ── */
+.calendar-day--overdue {
+  border-color: rgba(239, 68, 68, 0.3) !important;
+  background: rgba(239, 68, 68, 0.06) !important;
+}
+
+.calendar-day__task-dot--overdue {
+  background: #ef4444 !important;
+  box-shadow: 0 0 4px rgba(239, 68, 68, 0.5);
+}
+
+/* ── Task Item Overdue ── */
+.calendar-task-item--overdue {
+  border-color: rgba(239, 68, 68, 0.25) !important;
+  background: rgba(239, 68, 68, 0.04) !important;
+}
+
+.calendar-task-item__warning {
+  color: #f87171;
+  flex-shrink: 0;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
