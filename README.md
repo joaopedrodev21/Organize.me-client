@@ -11,7 +11,7 @@
 
 Uma aplicação moderna e responsiva de gerenciamento de tarefas construída com React e TypeScript, apresentando um dashboard limpo, visualização em calendário, organização por prioridade e suporte a temas claro/escuro.
 
-[Deploy](#) • [Reportar Bug](https://github.com/joaopedrodev21/Manager-tasks-client/issues) • [Solicitar Feature](https://github.com/joaopedrodev21/Manager-tasks-client/issues)
+[Deploy](#) • [Reportar Bug](https://github.com/joaopedrodev21/Organize.me-client/issues) • [Solicitar Feature](https://github.com/joaopedrodev21/Organize.me-client/issues)
 
 </div>
 
@@ -28,7 +28,6 @@ Uma aplicação moderna e responsiva de gerenciamento de tarefas construída com
 - [Scripts Disponíveis](#-scripts-disponíveis)
 - [Arquitetura](#-arquitetura)
 - [Contribuindo](#-contribuindo)
-- [Licença](#-licença)
 
 ---
 
@@ -36,7 +35,7 @@ Uma aplicação moderna e responsiva de gerenciamento de tarefas construída com
 
 **Organize.me** é uma aplicação fullstack de gerenciamento de tarefas projetada para ajudar os usuários a organizar seu fluxo diário de trabalho de forma eficiente. A aplicação oferece um dashboard intuitivo para gerenciar tarefas com níveis de prioridade, uma visualização em calendário para visualizar prazos e estatísticas abrangentes para acompanhar a produtividade.
 
-Este repositório contém o **cliente frontend** construído com React. A API backend está disponível em [Manager-tasks-server](https://github.com/joaopedrodev21/Manager-tasks-server).
+Este repositório contém o **cliente frontend** construído com React. A API backend está disponível em [Organize.me](https://github.com/joaopedrodev21/Organize.me-server).
 
 ---
 
@@ -146,15 +145,15 @@ src/
 
 - **Node.js** (v18 ou superior recomendado)
 - **npm** ou **yarn**
-- **API Backend** rodando em `http://localhost:3000` ([Repositório do Backend](https://github.com/joaopedrodev21/Manager-tasks-server))
+- **API Backend** rodando em `http://localhost:3000` ([Repositório do Backend](https://github.com/joaopedrodev21/Organize.me-server))
 
 ### Instalação
 
 1. **Clone o repositório**
 
 ```bash
-git clone https://github.com/joaopedrodev21/Manager-tasks-client.git
-cd Manager-tasks-client
+git clone https://github.com/joaopedrodev21/Organize.me-client.git
+cd Organize.me-client
 ```
 
 2. **Instale as dependências**
