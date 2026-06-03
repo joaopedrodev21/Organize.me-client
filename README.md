@@ -246,13 +246,6 @@ Contribuições são bem-vindas! Por favor, siga estes passos:
 
 ---
 
-## 📄 Licença
-
-Este projeto está licenciado sob a Licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
----
-
-
 ## Autor 
 
 [João Pedro](https://github.com/joaopedrodev21)
