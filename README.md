@@ -1,73 +1,259 @@
-# React + TypeScript + Vite
+<div align="center">
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# ✅ Organize.me
 
-Currently, two official plugins are available:
+### Aplicativo de Gerenciamento de Tarefas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=white)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vite.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 
-## React Compiler
+Uma aplicação moderna e responsiva de gerenciamento de tarefas construída com React e TypeScript, apresentando um dashboard limpo, visualização em calendário, organização por prioridade e suporte a temas claro/escuro.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+[Deploy](#) • [Reportar Bug](https://github.com/joaopedrodev21/Manager-tasks-client/issues) • [Solicitar Feature](https://github.com/joaopedrodev21/Manager-tasks-client/issues)
 
-## Expanding the ESLint configuration
+</div>
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 📋 Sumário
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- [Sobre](#-sobre)
+- [Funcionalidades](#-funcionalidades)
+- [Tecnologias](#-tecnologias)
+- [Estrutura do Projeto](#-estrutura-do-projeto)
+- [Como Começar](#-como-começar)
+- [Variáveis de Ambiente](#-variáveis-de-ambiente)
+- [Scripts Disponíveis](#-scripts-disponíveis)
+- [Arquitetura](#-arquitetura)
+- [Contribuindo](#-contribuindo)
+- [Licença](#-licença)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## 📖 Sobre
+
+**Organize.me** é uma aplicação fullstack de gerenciamento de tarefas projetada para ajudar os usuários a organizar seu fluxo diário de trabalho de forma eficiente. A aplicação oferece um dashboard intuitivo para gerenciar tarefas com níveis de prioridade, uma visualização em calendário para visualizar prazos e estatísticas abrangentes para acompanhar a produtividade.
+
+Este repositório contém o **cliente frontend** construído com React. A API backend está disponível em [Manager-tasks-server](https://github.com/joaopedrodev21/Manager-tasks-server).
+
+---
+
+## ✨ Funcionalidades
+
+### 🔐 Autenticação
+- Cadastro e login de usuários com autenticação baseada em JWT
+- Fluxo de esquecimento e redefinição de senha
+- Rotas protegidas com validação automática de token
+- Persistência de sessão via localStorage
+
+### 📊 Dashboard
+- Criação, edição e exclusão de tarefas (CRUD completo)
+- Filtragem de tarefas por prioridade (Alta / Baixa) e status (Todas / Pendentes / Concluídas)
+- Seções organizadas de tarefas: **Alta Prioridade**, **Baixa Prioridade** e **Concluídas**
+- Gráfico de pizza em tempo real mostrando tarefas concluídas vs. pendentes
+- Estatísticas de distribuição por prioridade
+
+### 📅 Calendário
+- Visualização mensal em calendário com indicação de tarefas
+- Indicadores coloridos de tarefas baseados em prioridade e status
+- Alertas de tarefas atrasadas com avisos visuais
+- Navegação entre meses e botão de acesso rápido "Hoje"
+- Lista de tarefas ordenada com datas de vencimento
+
+### 👤 Perfil
+- Exibição das informações do usuário (nome, email, ID da conta, membro desde)
+- Resumo estatístico de tarefas (total, concluídas, pendentes, produtividade %)
+- Alternância de tema claro/escuro com persistência
+
+### 🎨 UI/UX
+- **Tema claro/escuro** com transições suaves e persistência no localStorage
+- **Design totalmente responsivo** para desktop, tablet e mobile
+- Layout moderno baseado em cards com espaçamento consistente
+- Iconografia powered by [Lucide React](https://lucide.dev/)
+- Hierarquia visual limpa e minimalista
+
+---
+
+## 🛠 Tecnologias
+
+| Categoria | Tecnologia |
+|---|---|
+| **Framework** | [React 19](https://react.dev/) |
+| **Linguagem** | [TypeScript 6](https://www.typescriptlang.org/) |
+| **Build Tool** | [Vite 8](https://vite.dev/) |
+| **Estilização** | [Tailwind CSS 4](https://tailwindcss.com/) + CSS Customizado |
+| **Roteamento** | [React Router DOM 7](https://reactrouter.com/) |
+| **HTTP Client** | [Axios](https://axios-http.com/) |
+| **Validação** | [Zod](https://zod.dev/) |
+| **Ícones** | [Lucide React](https://lucide.dev/) |
+| **Linting** | [ESLint](https://eslint.org/) |
+
+---
+
+## 📁 Estrutura do Projeto
+
+```
+src/
+├── assets/              # Assets estáticos (imagens, SVGs)
+├── components/          # Componentes reutilizáveis da UI
+│   ├── DashboardHeader.tsx
+│   ├── PieChart.tsx
+│   ├── PriorityStats.tsx
+│   ├── ProtectedRoute.tsx
+│   ├── Sidebar.tsx
+│   ├── SidebarProgress.tsx
+│   ├── TaskCard.tsx
+│   ├── TaskFilters.tsx
+│   ├── TaskForm.tsx
+│   └── TaskSection.tsx
+├── contexts/            # Provedores de Context do React
+│   ├── AuthContext.tsx
+│   └── ThemeContext.tsx
+├── hooks/               # Hooks customizados do React
+│   ├── useAuth.ts
+│   ├── useTasks.ts
+│   └── useTheme.ts
+├── pages/               # Componentes de página (rotas)
+│   ├── CalendarPage.tsx
+│   ├── DashboardPage.tsx
+│   ├── ForgotPasswordPage.tsx
+│   ├── LoginPage.tsx
+│   ├── ProfilePage.tsx
+│   ├── RegisterPage.tsx
+│   └── ResetPasswordPage.tsx
+├── services/            # Camada de serviços da API
+│   ├── api.ts           # Instância Axios e interceptors
+│   ├── auth.service.ts  # Endpoints de autenticação
+│   ├── task.service.ts  # Endpoints CRUD de tarefas
+│   └── user.service.ts  # Endpoints de gerenciamento de usuários
+├── styles/              # Arquivos CSS por componente
+├── types/               # Definições de tipos TypeScript
+│   └── index.ts
+├── utils/               # Funções utilitárias
+│   └── formatDate.ts
+├── App.tsx              # Componente raiz com roteamento
+├── main.tsx             # Ponto de entrada da aplicação
+└── index.css            # Estilos globais e imports do Tailwind
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🚀 Como Começar
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Pré-requisitos
+
+- **Node.js** (v18 ou superior recomendado)
+- **npm** ou **yarn**
+- **API Backend** rodando em `http://localhost:3000` ([Repositório do Backend](https://github.com/joaopedrodev21/Manager-tasks-server))
+
+### Instalação
+
+1. **Clone o repositório**
+
+```bash
+git clone https://github.com/joaopedrodev21/Manager-tasks-client.git
+cd Manager-tasks-client
 ```
+
+2. **Instale as dependências**
+
+```bash
+npm install
+```
+
+3. **Inicie o servidor de desenvolvimento**
+
+```bash
+npm run dev
+```
+
+4. **Abra no navegador**
+
+A aplicação estará disponível em `http://localhost:5173`.
+
+---
+
+## 🔧 Variáveis de Ambiente
+
+A aplicação se conecta à API backend via proxy configurado do Vite. Por padrão, a API é esperada em `http://localhost:3000`. Se precisar alterar, modifique os seguintes arquivos:
+
+| Arquivo | Variável | Descrição |
+|---|---|---|
+| `vite.config.ts` | `server.proxy` | URL alvo do proxy em desenvolvimento |
+| `src/services/api.ts` | `baseURL` | URL base do Axios para requisições da API |
+
+---
+
+## 📜 Scripts Disponíveis
+
+| Comando | Descrição |
+|---|---|
+| `npm run dev` | Inicia o servidor de desenvolvimento Vite com HMR |
+| `npm run build` | Verificação de tipos com `tsc` e build para produção |
+| `npm run preview` | Visualiza a build de produção localmente |
+| `npm run lint` | Executa o ESLint em todo o projeto |
+
+---
+
+## 🏗 Arquitetura
+
+### Fluxo de Autenticação
+
+```
+Login/Cadastro → Token JWT → localStorage → Interceptor do Axios → Rotas Protegidas
+```
+
+- Tokens JWT são armazenados no `localStorage` e anexados automaticamente às requisições via interceptors do Axios.
+- Respostas 401 disparam logout automático e redirecionamento para `/login`.
+
+### Gerenciamento de Estado
+
+A aplicação utiliza a API de Context do React para estado global:
+
+- **`AuthContext`** — Gerencia o estado de autenticação do usuário, login/logout e persistência de token.
+- **`ThemeContext`** — Gerencia a preferência de tema claro/escuro com persistência no localStorage.
+
+### Rotas
+
+| Rota | Componente | Acesso |
+|---|---|---|
+| `/` | Redireciona para `/dashboard` | Público |
+| `/login` | `LoginPage` | Público |
+| `/register` | `RegisterPage` | Público |
+| `/forgot-password` | `ForgotPasswordPage` | Público |
+| `/reset-password` | `ResetPasswordPage` | Público |
+| `/dashboard` | `DashboardPage` | Protegido |
+| `/calendar` | `CalendarPage` | Protegido |
+| `/profile` | `ProfilePage` | Protegido |
+
+### Comunicação com a API
+
+Todas as requisições da API são tratadas através de módulos de serviço dedicados (`auth.service.ts`, `task.service.ts`, `user.service.ts`) que utilizam uma instância centralizada do Axios com interceptors de requisição/resposta integrados.
+
+---
+
+## 🤝 Contribuindo
+
+Contribuições são bem-vindas! Por favor, siga estes passos:
+
+1. Faça um fork do repositório
+2. Crie uma branch de feature (`git checkout -b feature/sua-feature`)
+3. Faça commit das suas alterações (`git commit -m 'Adicionando alguma feature'`)
+4. Push para a branch (`git push origin feature/sua-feature`)
+5. Abra um Pull Request
+
+---
+
+## 📄 Licença
+
+Este projeto está licenciado sob a Licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+---
+
+
+## Autor 
+
+[João Pedro](https://github.com/joaopedrodev21)
+
