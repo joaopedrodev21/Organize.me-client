@@ -102,6 +102,11 @@
   font-weight: 700;
 }
 
+.task-card__tag--low {
+  background: rgba(250, 204, 21, 0.1);
+  color: #fbbf24;
+}
+
 .task-card__description {
   margin-top: 6px;
   color: var(--text-dim);
