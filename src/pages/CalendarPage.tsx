@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { Sidebar } from "../components/Sidebar";
 import { useTasks } from "../hooks/useTasks";
 import { formatDate } from "../utils/formatDate";
-import { ChevronLeft, ChevronRight, Calendar, AlertTriangle } from "lucide-react";
+import { ChevronLeft, ChevronRight, Calendar, AlertTriangle, ArrowUp, ArrowDown, Clock, CheckCircle2, Circle } from "lucide-react";
 import "../styles/dashboard-layout.css";
 import "../styles/calendar.css";
 
@@ -213,14 +213,15 @@ export function CalendarPage() {
                               task.priority === "HIGH" ? "calendar-task-item__badge--high" : "calendar-task-item__badge--low"
                             }`}
                           >
-                            {task.priority === "HIGH" ? "Alta" : "Baixa"}
+                            {task.priority === "HIGH" ? <><ArrowUp size={11} /> Alta</> : <><ArrowDown size={11} /> Baixa</>}
                           </span>
-                          <span style={{ flex: 1, color: task.done ? "var(--text-dim)" : isOverdue ? "var(--danger-text)" : "var(--text-secondary)", textDecoration: task.done ? "line-through" : "none" }}>
+                          <span style={{ flex: 1, color: task.done ? "var(--text-dim)" : isOverdue ? "var(--danger-text)" : "var(--text-secondary)", textDecoration: task.done ? "line-through" : "none", display: "flex", alignItems: "center", gap: "6px" }}>
+                            {task.done ? <CheckCircle2 size={14} /> : <Circle size={14} />}
                             {task.title}
                           </span>
                           <span style={{ color: isOverdue ? "var(--danger-text-hover)" : "var(--text-dim)", fontSize: "0.82rem", fontWeight: 600, display: "flex", alignItems: "center", gap: "4px" }}>
-                            {isOverdue && "⏰ "}
-                            {due}
+                            {isOverdue && <Clock size={13} />}
+                            {' '}{due}
                           </span>
                         </div>
                       );
