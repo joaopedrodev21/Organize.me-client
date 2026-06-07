@@ -1,9 +1,9 @@
-import { createContext, useState, useEffect, type ReactNode } from 'react';
+import { createContext, useState, type ReactNode, useCallback } from 'react';
 import type { User } from '../types';
 import { authService } from '../services/auth.service';
 import { userService } from '../services/user.service';
 
-interface AuthContextType {
+export interface AuthContextType {
     user: User | null;
     token: string | null;
     loading: boolean;
@@ -12,57 +12,75 @@ interface AuthContextType {
     logout: () => void;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
-export function AuthProvider({ children }: { children: ReactNode }) {
-    const [user, setUser] = useState<User | null>(null);
-    const [token, setToken] = useState<string | null>(null);
-    const [loading, setLoading] = useState(true);
+function getInitialState() {
+    const savedToken = localStorage.getItem('token');
+    const savedUser = localStorage.getItem('user');
+    if (savedToken && savedUser) {
+        try {
+            return { token: savedToken, user: JSON.parse(savedUser) as User };
+        } catch {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+        }
+    }
+    return { token: null, user: null };
+}
 
-    useEffect(() => {
+export function AuthProvider({ children }: { children: ReactNode }) {
+    const [state, setState] = useState(() => getInitialState());
+    const [loading, setLoading] = useState(() => !state.token);
+
+    // Se tem token mas não tem user salvo (ou user inválido), busca da API
+    const initialize = useCallback(async () => {
         const savedToken = localStorage.getItem('token');
-        const savedUser = localStorage.getItem('user');
-        if(savedToken) {
-            setToken(savedToken);
-            if(savedUser) {
-                setUser(JSON.parse(savedUser));
+        if (savedToken && !state.user) {
+            try {
+                const user = await userService.getMe();
+                localStorage.setItem('user', JSON.stringify(user));
+                setState({ token: savedToken, user });
+            } catch {
+                localStorage.removeItem('token');
+                setState({ token: null, user: null });
+            } finally {
                 setLoading(false);
-            } else {
-                // Se não tem user salvo, busca da API
-                userService.getMe()
-                    .then(setUser)
-                    .catch(() => {
-                        localStorage.removeItem('token');
-                        setToken(null);
-                    })
-                    .finally(() => setLoading(false));
             }
-        } else {
+        } else if (!savedToken) {
             setLoading(false);
         }
-    }, []);
+    }, [state.user]);
+
+    // Chama initialize apenas se necessário
+    if (state.token && !state.user && loading) {
+        initialize();
+    }
 
     async function login(email: string, password: string) {
         const response = await authService.login(email, password);
-        setToken(response.token);
-        setUser(response.user);
+        setState({ token: response.token, user: response.user });
         localStorage.setItem('token', response.token);
         localStorage.setItem('user', JSON.stringify(response.user));
+        setLoading(false);
     }
 
     async function register(name: string, email: string, password: string) {
-        await authService.register(name, email, password);
-        await login(email, password);
+        const response = await authService.register(name, email, password);
+        setState({ token: response.token, user: response.user });
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('user', JSON.stringify(response.user));
+        setLoading(false);
     }
 
     function logout() {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        setToken(null);
-        setUser(null);
+        setState({ token: null, user: null });
     }
+
     return (
-        <AuthContext.Provider value={{ user, token, loading, login, register, logout }}>
+        <AuthContext.Provider value={{ user: state.user, token: state.token, loading, login, register, logout }}>
         {children}
         </AuthContext.Provider>
     );

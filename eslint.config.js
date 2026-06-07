@@ -9,6 +9,7 @@ export default defineConfig([
   globalIgnores(['dist']),
   {
     files: ['**/*.{ts,tsx}'],
+    ignores: ['.eslintignore'],
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
@@ -23,6 +24,8 @@ export default defineConfig([
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
       'react-hooks/exhaustive-deps': 'warn',
       'no-console': ['warn', { allow: ['warn', 'error'] }],
+      // Permitir contexto + provider no mesmo arquivo (padrão comum no React)
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     },
   },
 ])

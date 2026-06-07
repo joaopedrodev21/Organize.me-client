@@ -24,7 +24,11 @@ export function LoginPage() {
             navigate("/dashboard");
         } catch (err: unknown) {
             if (axios.isAxiosError(err)) {
-                setError(err.response?.data?.message || "Email ou senha inválidos");
+                setError(
+                    err.response?.data?.message ||
+                    err.response?.data?.errors?.[0]?.message ||
+                    "Email ou senha inválidos"
+                );
             } else {
                 setError("Email ou senha inválidos");
             }

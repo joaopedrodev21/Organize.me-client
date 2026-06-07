@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import type { Task, CreateTaskData, UpdateTaskData} from '../types';
 import { taskService } from '../services/task.service';
 import axios from 'axios';
@@ -10,6 +10,7 @@ export function useTasks() {
     const [creating, setCreating] = useState(false);
     const [updating, setUpdating] = useState<number | null>(null);
     const [deleting, setDeleting] = useState<number | null>(null);
+    const [initialized, setInitialized] = useState(false);
 
     const fetchTasks = useCallback(async () => {
         setLoading(true);
@@ -27,6 +28,12 @@ export function useTasks() {
             setLoading(false);
         }
     }, []);
+
+    // Inicializa na primeira renderização
+    if (!initialized) {
+        setInitialized(true);
+        fetchTasks();
+    }
 
     async function createTask(data: CreateTaskData) {
         setCreating(true);
@@ -57,10 +64,6 @@ export function useTasks() {
             setDeleting(null);
         }
     }
-
-    useEffect(() => {
-        fetchTasks();
-    }, [fetchTasks]);
 
     return {
         tasks,

@@ -11,7 +11,7 @@
 
 Uma aplicação moderna e responsiva de gerenciamento de tarefas construída com React e TypeScript, apresentando um dashboard limpo, visualização em calendário, organização por prioridade e suporte a temas claro/escuro.
 
-[Deploy](#) • [Reportar Bug](https://github.com/joaopedrodev21/Organize.me-client/issues) • [Solicitar Feature](https://github.com/joaopedrodev21/Organize.me-client/issues)
+[Deploy](https://organize-me-client.vercel.app) • [Reportar Bug](https://github.com/joaopedrodev21/Organize.me-client/issues) • [Solicitar Feature](https://github.com/joaopedrodev21/Organize.me-client/issues)
 
 </div>
 
@@ -27,6 +27,7 @@ Uma aplicação moderna e responsiva de gerenciamento de tarefas construída com
 - [Variáveis de Ambiente](#-variáveis-de-ambiente)
 - [Scripts Disponíveis](#-scripts-disponíveis)
 - [Arquitetura](#-arquitetura)
+- [Deploy na Vercel](#-deploy-na-vercel)
 - [Contribuindo](#-contribuindo)
 
 ---
@@ -35,7 +36,7 @@ Uma aplicação moderna e responsiva de gerenciamento de tarefas construída com
 
 **Organize.me** é uma aplicação fullstack de gerenciamento de tarefas projetada para ajudar os usuários a organizar seu fluxo diário de trabalho de forma eficiente. A aplicação oferece um dashboard intuitivo para gerenciar tarefas com níveis de prioridade, uma visualização em calendário para visualizar prazos e estatísticas abrangentes para acompanhar a produtividade.
 
-Este repositório contém o **cliente frontend** construído com React. A API backend está disponível em [Organize.me](https://github.com/joaopedrodev21/Organize.me-server).
+Este repositório contém o **cliente frontend** construído com React. A API backend está disponível em [Organize.me-server](https://github.com/joaopedrodev21/Organize.me-server).
 
 ---
 
@@ -53,6 +54,7 @@ Este repositório contém o **cliente frontend** construído com React. A API ba
 - Seções organizadas de tarefas: **Alta Prioridade**, **Baixa Prioridade** e **Concluídas**
 - Gráfico de pizza em tempo real mostrando tarefas concluídas vs. pendentes
 - Estatísticas de distribuição por prioridade
+- Confirmação ao concluir tarefas para evitar ações acidentais
 
 ### 📅 Calendário
 - Visualização mensal em calendário com indicação de tarefas
@@ -64,12 +66,14 @@ Este repositório contém o **cliente frontend** construído com React. A API ba
 ### 👤 Perfil
 - Exibição das informações do usuário (nome, email, ID da conta, membro desde)
 - Resumo estatístico de tarefas (total, concluídas, pendentes, produtividade %)
+- Estados de carregamento para autenticação e tarefas
 - Alternância de tema claro/escuro com persistência
 
 ### 🎨 UI/UX
 - **Tema claro/escuro** com transições suaves e persistência no localStorage
 - **Design totalmente responsivo** para desktop, tablet e mobile
 - Layout moderno baseado em cards com espaçamento consistente
+- Sidebar colapsável com perfil e progresso
 - Iconografia powered by [Lucide React](https://lucide.dev/)
 - Hierarquia visual limpa e minimalista
 
@@ -87,7 +91,7 @@ Este repositório contém o **cliente frontend** construído com React. A API ba
 | **HTTP Client** | [Axios](https://axios-http.com/) |
 | **Validação** | [Zod](https://zod.dev/) |
 | **Ícones** | [Lucide React](https://lucide.dev/) |
-| **Linting** | [ESLint](https://eslint.org/) |
+| **Linting** | [ESLint](https://eslint.org/) + TypeScript ESLint |
 
 ---
 
@@ -95,7 +99,7 @@ Este repositório contém o **cliente frontend** construído com React. A API ba
 
 ```
 src/
-├── assets/              # Assets estáticos (imagens, SVGs)
+├── assets/              # Assets estáticos (imagens)
 ├── components/          # Componentes reutilizáveis da UI
 │   ├── DashboardHeader.tsx
 │   ├── PieChart.tsx
@@ -131,6 +135,7 @@ src/
 ├── types/               # Definições de tipos TypeScript
 │   └── index.ts
 ├── utils/               # Funções utilitárias
+│   ├── dateUtils.ts     # Formatação e conversão de datas
 │   └── formatDate.ts
 ├── App.tsx              # Componente raiz com roteamento
 ├── main.tsx             # Ponto de entrada da aplicação
@@ -162,13 +167,19 @@ cd Organize.me-client
 npm install
 ```
 
-3. **Inicie o servidor de desenvolvimento**
+3. **Configure as variáveis de ambiente** (opcional em dev)
+
+```bash
+cp .env.example .env
+```
+
+4. **Inicie o servidor de desenvolvimento**
 
 ```bash
 npm run dev
 ```
 
-4. **Abra no navegador**
+5. **Abra no navegador**
 
 A aplicação estará disponível em `http://localhost:5173`.
 
@@ -176,12 +187,15 @@ A aplicação estará disponível em `http://localhost:5173`.
 
 ## 🔧 Variáveis de Ambiente
 
-A aplicação se conecta à API backend via proxy configurado do Vite. Por padrão, a API é esperada em `http://localhost:3000`. Se precisar alterar, modifique os seguintes arquivos:
-
-| Arquivo | Variável | Descrição |
+| Variável | Descrição | Padrão |
 |---|---|---|
-| `vite.config.ts` | `server.proxy` | URL alvo do proxy em desenvolvimento |
-| `src/services/api.ts` | `baseURL` | URL base do Axios para requisições da API |
+| `VITE_API_URL` | URL base da API backend | `/api` (usa proxy do Vite em dev) |
+
+### Como funciona o proxy em desenvolvimento
+
+O Vite está configurado para redirecionar requisições `/api` para `http://localhost:3000`. Isso significa que em desenvolvimento você não precisa configurar CORS.
+
+Em produção (Vercel), defina `VITE_API_URL` com a URL do seu backend hospedado.
 
 ---
 
@@ -233,6 +247,19 @@ Todas as requisições da API são tratadas através de módulos de serviço ded
 
 ---
 
+## 🚀 Deploy na Vercel
+
+1. Conecte o repositório no [Vercel](https://vercel.com)
+2. Configure a variável de ambiente `VITE_API_URL` com a URL do backend
+3. O build é automático — o Vercel detecta o Vite e executa `npm run build`
+4. A pasta `dist/` será servida como static files
+
+### Configuração do backend
+
+Certifique-se de que seu backend permita CORS da URL do seu frontend na Vercel e que o endpoint de reset de senha esteja configurado com a URL correta.
+
+---
+
 ## 🤝 Contribuindo
 
 Contribuições são bem-vindas! Por favor, siga estes passos:
@@ -245,7 +272,6 @@ Contribuições são bem-vindas! Por favor, siga estes passos:
 
 ---
 
-## Autor 
+## Autor
 
 [João Pedro](https://github.com/joaopedrodev21)
-

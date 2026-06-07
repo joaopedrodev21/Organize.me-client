@@ -7,9 +7,9 @@ import "../styles/dashboard-layout.css";
 import "../styles/profile.css";
 
 export function ProfilePage() {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const { theme, toggleTheme } = useTheme();
-  const { tasks } = useTasks();
+  const { tasks, loading: tasksLoading } = useTasks();
 
   const completedTasks = tasks.filter(t => t.done).length;
   const pendingTasks = tasks.length - completedTasks;
@@ -28,6 +28,26 @@ export function ProfilePage() {
         month: "long",
       })
     : "—";
+
+  if (authLoading) {
+    return (
+      <div className="dashboard-page">
+        <div className="dashboard-layout">
+          <Sidebar tasks={tasks} />
+          <div className="dashboard-main">
+            <main>
+              <div className="loading-shell">
+                <div className="loading-spinner">
+                  <div className="spinner"></div>
+                  <p>Carregando perfil...</p>
+                </div>
+              </div>
+            </main>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="dashboard-page">
@@ -124,6 +144,9 @@ export function ProfilePage() {
                   <h3 style={{ margin: "0 0 16px", fontSize: "0.88rem", fontWeight: 700, color: "var(--text-secondary)" }}>
                     Resumo das tarefas
                   </h3>
+                  {tasksLoading ? (
+                    <p style={{ color: "var(--text-muted)", fontSize: "0.85rem" }}>Carregando tarefas...</p>
+                  ) : (
                   <div className="profile-stats-grid">
                     <div className="profile-stat">
                       <span className="profile-stat__value">{tasks.length}</span>
@@ -142,6 +165,7 @@ export function ProfilePage() {
                       <span className="profile-stat__label">Produtividade</span>
                     </div>
                   </div>
+                  )}
                 </div>
               </div>
 

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { CreateTaskData } from "../types";
+import { formatDateInput, parseDateToISO } from "../utils/dateUtils";
 import '../styles/task-form.css';
 
 interface Props {
@@ -15,57 +16,9 @@ export function TaskForm({ onSubmit, onClose }: Props) {
     const [dateError, setDateError] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    function formatDueDate(value: string): string {
-        // Remove tudo que não é dígito
-        const digits = value.replace(/\D/g, "");
-        
-        // Aplica a máscara DD/MM/AAAA
-        let formatted = "";
-        if (digits.length <= 2) {
-            formatted = digits;
-        } else if (digits.length <= 4) {
-            formatted = `${digits.slice(0, 2)}/${digits.slice(2)}`;
-        } else {
-            formatted = `${digits.slice(0, 2)}/${digits.slice(2, 4)}/${digits.slice(4, 8)}`;
-        }
-
-        return formatted;
-    }
-
     function handleDateChange(value: string) {
-        setDueDate(formatDueDate(value));
+        setDueDate(formatDateInput(value));
         setDateError("");
-    }
-
-    function parseDateToISO(dateStr: string): string | undefined {
-        if (!dateStr) return undefined;
-
-        const [day, month, year] = dateStr.split("/");
-        if (!day || !month || !year) {
-            setDateError("Formato inválido. Use DD/MM/AAAA");
-            return undefined;
-        }
-
-        const d = parseInt(day, 10);
-        const m = parseInt(month, 10) - 1; // mês 0-indexed
-        const y = parseInt(year, 10);
-
-        // Validação básica
-        if (d < 1 || d > 31) {
-            setDateError("Dia inválido");
-            return undefined;
-        }
-        if (m < 0 || m > 11) {
-            setDateError("Mês inválido");
-            return undefined;
-        }
-        if (year.length !== 4 || isNaN(y)) {
-            setDateError("Ano inválido. Use 4 dígitos");
-            return undefined;
-        }
-
-        // Constrói data como meio-dia UTC para evitar problemas de fuso
-        return `${year}-${String(m + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}T12:00:00.000Z`;
     }
 
     async function handleSubmit(e: React.FormEvent) {

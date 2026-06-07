@@ -22,7 +22,11 @@ export function RegisterPage() {
             navigate("/dashboard");
         } catch (err: unknown) {
             if (axios.isAxiosError(err)) {
-                setError(err.response?.data?.message || "Erro ao cadastrar, tente novamente!");
+                setError(
+                    err.response?.data?.message ||
+                    err.response?.data?.errors?.[0]?.message ||
+                    "Erro ao cadastrar, tente novamente!"
+                );
             } else {
                 setError("Erro ao cadastrar, tente novamente!");
             }
@@ -31,31 +35,6 @@ export function RegisterPage() {
     return (
         <div className="auth-page min-h-screen px-4 py-10">
             <div className="auth-grid mx-auto w-full px-4">
-                <section className="auth-panel">
-                    <span className="auth-panel__badge">Manager Tasks</span>
-                    <h1 className="auth-panel__title">
-                        Crie, priorize e conclua com confiança.
-                    </h1>
-                    <p className="auth-panel__copy">
-                        Construa uma rotina produtiva com uma interface mais limpa, mais clara e mais rápida de usar.
-                    </p>
-
-                    <div className="mt-8 space-y-4">
-                        <div className="auth-feature">
-                            <div className="auth-feature__icon">🧠</div>
-                            <div className="auth-feature__text">Controle total das suas tarefas</div>
-                        </div>
-                        <div className="auth-feature">
-                            <div className="auth-feature__icon">📅</div>
-                            <div className="auth-feature__text">Organização simples e elegante</div>
-                        </div>
-                        <div className="auth-feature">
-                            <div className="auth-feature__icon">🚀</div>
-                            <div className="auth-feature__text">Resultados visíveis rapidamente</div>
-                        </div>
-                    </div>
-                </section>
-
                 <form onSubmit={handleSubmit} className="auth-card">
                     <div className="auth-card__header">
                         <h2 className="auth-card__title">Registrar</h2>

@@ -11,8 +11,11 @@ export const taskService = {
         order?: string;
     }): Promise<Task[]> {
         const { data } = await api.get('/tasks', { params });
-        // O servidor retorna { items: Task[], meta: {...} } (formato paginado)
-        return Array.isArray(data) ? data : (data.items ?? []);
+        // O servidor pode retornar array direto ou { data: Task[], meta: {...} } (paginado)
+        if (Array.isArray(data)) return data;
+        if (data && Array.isArray(data.data)) return data.data;
+        if (data && Array.isArray(data.items)) return data.items;
+        return [];
     }, 
     async getById(id: number): Promise<Task> {
         const { data } = await api.get(`/tasks/${id}`);

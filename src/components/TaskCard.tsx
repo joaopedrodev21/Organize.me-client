@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { Task, UpdateTaskData } from "../types"
 import { formatDate } from "../utils/formatDate";
+import { formatDateInput, parseDateToISO as parseDateToISOShared, formatDateView as formatDateViewShared } from "../utils/dateUtils";
 import { Trash2, Pencil } from "lucide-react";
 import '../styles/task-card.css';
 
@@ -22,35 +23,15 @@ export function TaskCard({ task, onToggle, onDelete, onUpdate }: Props) {
     const [showConfirm, setShowConfirm] = useState(false);
 
     function formatDateView(isoString: string): string {
-        const [datePart] = isoString.split("T");
-        if (!datePart) return "";
-        const [year, month, day] = datePart.split("-");
-        if (!year || !month || !day) return "";
-        return `${day}/${month}/${year}`;
+        return formatDateViewShared(isoString);
     }
 
     function parseDateToISO(dateStr: string): string | undefined {
-        if (!dateStr) return undefined;
-        const [day, month, year] = dateStr.split("/");
-        if (!day || !month || !year || year.length !== 4) return undefined;
-        const d = parseInt(day, 10);
-        const m = parseInt(month, 10);
-        const y = parseInt(year, 10);
-        if (d < 1 || d > 31 || m < 1 || m > 12 || isNaN(y)) return undefined;
-        return `${year}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}T12:00:00.000Z`;
+        return parseDateToISOShared(dateStr);
     }
 
     function formatDueDateInput(value: string): string {
-        const digits = value.replace(/\D/g, "");
-        let formatted = "";
-        if (digits.length <= 2) {
-            formatted = digits;
-        } else if (digits.length <= 4) {
-            formatted = `${digits.slice(0, 2)}/${digits.slice(2)}`;
-        } else {
-            formatted = `${digits.slice(0, 2)}/${digits.slice(2, 4)}/${digits.slice(4, 8)}`;
-        }
-        return formatted;
+        return formatDateInput(value);
     }
 
     async function handleSave() {
@@ -92,6 +73,7 @@ export function TaskCard({ task, onToggle, onDelete, onUpdate }: Props) {
     }
 
     const dueDateFormatted = task.dueDate ? formatDate(task.dueDate) : null;
+    const isOverdue = task.dueDate && !task.done && new Date(task.dueDate) < new Date();
     const createdDate = formatDate(task.createdAt);
 
     if (editing) {
@@ -227,7 +209,10 @@ export function TaskCard({ task, onToggle, onDelete, onUpdate }: Props) {
 
                 <div className="task-card__meta">
                     {dueDateFormatted && (
-                        <span>📅 {dueDateFormatted}</span>
+                        <span className={isOverdue ? "task-card__overdue" : ""}>
+                            📅 {dueDateFormatted}
+                            {isOverdue && " ⏰ Atrasada"}
+                        </span>
                     )}
                     <span>{createdDate}</span>
                 </div>
