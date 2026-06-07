@@ -23,10 +23,7 @@ export function ProfilePage() {
     .slice(0, 2) || "?";
 
   const memberSince = user?.createdAt
-    ? new Date(user.createdAt).toLocaleDateString("pt-BR", {
-        year: "numeric",
-        month: "long",
-      })
+    ? new Date(user.createdAt).toLocaleDateString("pt-BR")
     : "—";
 
   if (authLoading) {
