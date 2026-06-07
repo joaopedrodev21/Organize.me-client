@@ -2,7 +2,7 @@ import { Sidebar } from "../components/Sidebar";
 import { useAuth } from "../hooks/useAuth";
 import { useTheme } from "../hooks/useTheme";
 import { useTasks } from "../hooks/useTasks";
-import { Sun, Moon, User, Mail, Calendar, Shield } from "lucide-react";
+import { Sun, Moon, User, Mail, Calendar } from "lucide-react";
 import "../styles/dashboard-layout.css";
 import "../styles/profile.css";
 
@@ -127,15 +127,6 @@ export function ProfilePage() {
                       <span className="profile-info-value">{memberSince}</span>
                     </div>
 
-                    <div className="profile-info-row">
-                      <span className="profile-info-icon">
-                        <Shield size={16} />
-                      </span>
-                      <span className="profile-info-label">ID da conta</span>
-                      <span className="profile-info-value" style={{ fontFamily: "monospace", fontSize: "0.78rem" }}>
-                        #{user?.id || "—"}
-                      </span>
-                    </div>
                   </div>
                 </div>
 
