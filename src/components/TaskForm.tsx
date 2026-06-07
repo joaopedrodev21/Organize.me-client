@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { CreateTaskData } from "../types";
-import { formatDateInput, parseDateToISO } from "../utils/dateUtils";
+import { formatDateInput, parseDateToISO, isPastDate } from "../utils/dateUtils";
 import '../styles/task-form.css';
 
 interface Props {
@@ -19,6 +19,12 @@ export function TaskForm({ onSubmit, onClose }: Props) {
     function handleDateChange(value: string) {
         setDueDate(formatDateInput(value));
         setDateError("");
+        // Valida se a data está no passado quando o campo está completo
+        if (value.length === 10) {
+            if (isPastDate(value)) {
+                setDateError("A data de vencimento não pode estar no passado");
+            }
+        }
     }
 
     async function handleSubmit(e: React.FormEvent) {
@@ -27,6 +33,10 @@ export function TaskForm({ onSubmit, onClose }: Props) {
 
         const isoDate = dueDate ? parseDateToISO(dueDate) : undefined;
         if (dueDate && !isoDate) return; // erro de validação, não envia
+        if (dueDate && isPastDate(dueDate)) {
+            setDateError("A data de vencimento não pode estar no passado");
+            return;
+        }
         
         try {
             setIsSubmitting(true);

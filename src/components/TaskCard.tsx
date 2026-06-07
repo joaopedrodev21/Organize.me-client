@@ -1,8 +1,8 @@
 import { useState } from "react";
 import type { Task, UpdateTaskData } from "../types"
 import { formatDate } from "../utils/formatDate";
-import { formatDateInput, parseDateToISO as parseDateToISOShared, formatDateView as formatDateViewShared } from "../utils/dateUtils";
-import { Trash2, Pencil } from "lucide-react";
+import { formatDateInput, parseDateToISO as parseDateToISOShared, formatDateView as formatDateViewShared, isPastDate } from "../utils/dateUtils";
+import { Trash2, Pencil, Calendar, AlertTriangle, ArrowUp, ArrowDown, CheckCircle2, Circle } from "lucide-react";
 import '../styles/task-card.css';
 
 interface Props {
@@ -70,6 +70,12 @@ export function TaskCard({ task, onToggle, onDelete, onUpdate }: Props) {
     function handleDateChange(value: string) {
         setDueDate(formatDueDateInput(value));
         setDateError("");
+        // Valida se a data está no passado
+        if (value.length === 10) {
+            if (isPastDate(value)) {
+                setDateError("A data de vencimento não pode estar no passado");
+            }
+        }
     }
 
     const dueDateFormatted = task.dueDate ? formatDate(task.dueDate) : null;
@@ -168,7 +174,9 @@ export function TaskCard({ task, onToggle, onDelete, onUpdate }: Props) {
                         }}
                         disabled={isUpdating}
                     />
-                    <span className="task-card__box">{task.done ? '✓' : ''}</span>
+                    <span className="task-card__box">
+                        {task.done ? <CheckCircle2 size={16} /> : <Circle size={16} />}
+                    </span>
                 </label>
                 {showConfirm && !task.done && (
                     <div className="task-card__confirm">
@@ -199,7 +207,16 @@ export function TaskCard({ task, onToggle, onDelete, onUpdate }: Props) {
                 >
                     {task.title}
                     {task.priority === "HIGH" && (
-                        <span className="task-card__tag">Alta</span>
+                        <span className="task-card__tag">
+                            <ArrowUp size={12} />
+                            Alta
+                        </span>
+                    )}
+                    {task.priority === "LOW" && (
+                        <span className="task-card__tag task-card__tag--low">
+                            <ArrowDown size={12} />
+                            Normal
+                        </span>
                     )}
                 </span>
 
@@ -210,8 +227,14 @@ export function TaskCard({ task, onToggle, onDelete, onUpdate }: Props) {
                 <div className="task-card__meta">
                     {dueDateFormatted && (
                         <span className={isOverdue ? "task-card__overdue" : ""}>
-                            📅 {dueDateFormatted}
-                            {isOverdue && " ⏰ Atrasada"}
+                            <Calendar size={13} />
+                            {' '}{dueDateFormatted}
+                            {isOverdue && (
+                                <>
+                                    {' '}<AlertTriangle size={13} />
+                                    {' '}Atrasada
+                                </>
+                            )}
                         </span>
                     )}
                     <span>{createdDate}</span>

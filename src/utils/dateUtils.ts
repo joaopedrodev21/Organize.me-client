@@ -37,3 +37,22 @@ export function formatDateView(isoString: string): string {
   if (!year || !month || !day) return "";
   return `${day}/${month}/${year}`;
 }
+
+/**
+ * Verifica se uma string DD/MM/AAAA representa uma data no passado (antes de hoje)
+ */
+export function isPastDate(dateStr: string): boolean {
+  const [day, month, year] = dateStr.split("/");
+  if (!day || !month || !year || year.length !== 4) return false;
+
+  const d = parseInt(day, 10);
+  const m = parseInt(month, 10) - 1;
+  const y = parseInt(year, 10);
+  if (d < 1 || d > 31 || m < 0 || m > 11 || isNaN(y)) return false;
+
+  const date = new Date(y, m, d);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  return date < today;
+}
