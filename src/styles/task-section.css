@@ -58,3 +58,57 @@
   display: grid;
   gap: 12px;
 }
+
+/* =============================================
+   Responsive
+   ============================================= */
+
+@media (max-width: 760px) {
+  .task-section {
+    padding: 18px 16px;
+    border-radius: 1.25rem;
+  }
+
+  .task-section__header {
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+  }
+
+  .task-section__title {
+    font-size: 0.82rem;
+    gap: 8px;
+  }
+
+  .task-section__icon {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    border-radius: 10px;
+  }
+
+  .task-section__badge {
+    min-width: 28px;
+    height: 24px;
+    font-size: 0.72rem;
+  }
+
+  .task-section__list {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .task-section {
+    padding: 14px 12px;
+    border-radius: 1rem;
+  }
+
+  .task-section__header {
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+
+  .task-section__list {
+    gap: 8px;
+  }
+}

@@ -88,3 +88,69 @@
   color: var(--text-faint);
   font-size: 0.75rem;
 }
+
+/* =============================================
+   Responsive
+   ============================================= */
+
+@media (max-width: 760px) {
+  .task-filters {
+    padding: 18px 16px;
+    border-radius: 1.5rem;
+  }
+
+  .task-filters__row {
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .task-filters__priority-button,
+  .task-filters__status-button {
+    padding: 6px 12px;
+    font-size: 0.75rem;
+  }
+
+  .task-filters__status-button {
+    min-width: 90px;
+  }
+
+  .task-filters__label {
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .task-filters {
+    padding: 14px 12px;
+    border-radius: 1.25rem;
+  }
+
+  .task-filters__row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .task-filters__priority {
+    gap: 6px;
+  }
+
+  .task-filters__priority-button {
+    flex: 1;
+    justify-content: center;
+    padding: 6px 10px;
+    font-size: 0.72rem;
+  }
+
+  .task-filters__status {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .task-filters__status-button {
+    min-width: unset;
+    width: 100%;
+    padding: 8px 14px;
+  }
+}

@@ -383,3 +383,53 @@
 .sidebar--collapsed .sidebar__progress-text {
   display: none;
 }
+
+/* =============================================
+   Sidebar Responsive
+   ============================================= */
+
+@media (max-width: 1200px) {
+  .sidebar {
+    width: 240px;
+    min-width: 240px;
+    padding: 16px 12px;
+  }
+
+  .sidebar--collapsed {
+    width: 72px;
+    min-width: 72px;
+    padding: 16px 10px;
+  }
+
+  .sidebar__brand-name {
+    font-size: 1rem;
+  }
+
+  .sidebar__profile {
+    padding: 10px 8px;
+    margin: 0 2px 4px;
+  }
+
+  .sidebar__avatar {
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    font-size: 0.72rem;
+  }
+
+  .sidebar__profile-name {
+    font-size: 0.82rem;
+  }
+
+  .sidebar__progress {
+    padding: 12px;
+    margin: 4px 2px;
+  }
+}
+
+/* Mobile bottom navigation bar */
+@media (max-width: 900px) {
+  .sidebar {
+    display: none;
+  }
+}

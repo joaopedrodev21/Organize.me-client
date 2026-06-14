@@ -116,3 +116,65 @@
   font-size: 0.75rem;
   line-height: 1.5;
 }
+
+/* =============================================
+   Responsive
+   ============================================= */
+
+@media (max-width: 900px) {
+  .dashboard-header {
+    padding: 24px 20px;
+    border-radius: 1.5rem;
+  }
+
+  .dashboard-header__main {
+    min-width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-header {
+    padding: 20px 16px;
+    border-radius: 1.25rem;
+    margin-bottom: 16px;
+  }
+
+  .dashboard-header__badge {
+    padding: 6px 12px;
+    font-size: 0.65rem;
+  }
+
+  .dashboard-header__title {
+    font-size: 1.15rem !important;
+    margin-top: 10px;
+  }
+
+  .dashboard-header__description {
+    font-size: 0.75rem;
+    margin-top: 6px;
+  }
+
+  .dashboard-header__stat {
+    padding: 14px 16px;
+  }
+
+  .dashboard-header__icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .dashboard-header__value {
+    font-size: 1.1rem;
+    margin-top: 8px;
+  }
+
+  .dashboard-header__label {
+    font-size: 0.72rem;
+    margin-top: 4px;
+  }
+
+  .dashboard-header__text {
+    font-size: 0.7rem;
+    margin-top: 3px;
+  }
+}

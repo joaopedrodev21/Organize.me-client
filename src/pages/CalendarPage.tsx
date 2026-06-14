@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { Sidebar } from "../components/Sidebar";
+import { MobileBottomNav } from "../components/MobileBottomNav";
 import { useTasks } from "../hooks/useTasks";
 import { formatDate } from "../utils/formatDate";
 import { ChevronLeft, ChevronRight, Calendar, AlertTriangle, ArrowUp, ArrowDown, Clock, CheckCircle2, Circle } from "lucide-react";
@@ -85,6 +86,8 @@ export function CalendarPage() {
     <div className="dashboard-page">
       <div className="dashboard-layout">
         <Sidebar tasks={tasks} />
+
+        <MobileBottomNav />
 
         <div className="dashboard-main">
           <main>

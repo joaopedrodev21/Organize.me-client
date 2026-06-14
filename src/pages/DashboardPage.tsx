@@ -1,4 +1,5 @@
 import { Sidebar } from "../components/Sidebar";
+import { MobileBottomNav } from "../components/MobileBottomNav";
 import { DashboardHeader } from "../components/DashboardHeader";
 import { TaskSection } from "../components/TaskSection";
 import { TaskForm } from "../components/TaskForm";
@@ -60,6 +61,8 @@ export function DashboardPage() {
     <div className="dashboard-page">
       <div className="dashboard-layout">
         <Sidebar tasks={tasks} />
+
+        <MobileBottomNav />
 
         <div className="dashboard-main">
           <main>

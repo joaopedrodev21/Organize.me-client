@@ -406,6 +406,118 @@
    Responsive
    ============================================= */
 
+/* Small phones (≤ 480px) */
+@media (max-width: 480px) {
+  .landing-hero__content {
+    padding: 1.5rem 1rem;
+  }
+
+  .landing-hero__title {
+    font-size: 1.75rem;
+  }
+
+  .landing-hero__copy {
+    font-size: 0.85rem;
+  }
+
+  .landing-hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .landing-hero__actions .landing-btn {
+    text-align: center;
+    padding: 0.7rem 1.5rem;
+  }
+
+  .landing-hero__mockup {
+    padding: 1rem;
+    border-radius: 1rem;
+  }
+
+  .landing-features {
+    padding: 3rem 1rem;
+  }
+
+  .landing-features__grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .landing-feature-card {
+    padding: 1.25rem;
+  }
+
+  .landing-cta {
+    padding: 3rem 1rem;
+  }
+
+  .landing-btn--lg {
+    width: 100%;
+    padding: 0.8rem 1.5rem;
+  }
+
+  .landing-nav {
+    padding: 0.6rem 1rem;
+  }
+
+  .landing-nav__inner {
+    gap: 0.5rem;
+  }
+
+  .landing-nav__links {
+    gap: 0.4rem;
+  }
+
+  .landing-nav__link,
+  .landing-nav__cta {
+    font-size: 0.68rem;
+    padding: 0.25rem 0.6rem;
+  }
+
+  .landing-section__subtitle {
+    margin-bottom: 2rem;
+    font-size: 0.82rem;
+  }
+}
+
+/* Medium phones to small tablets (481px - 767px) */
+@media (min-width: 481px) and (max-width: 767px) {
+  .landing-hero__content {
+    padding: 2rem 1.25rem;
+  }
+
+  .landing-hero__title {
+    font-size: 2rem;
+  }
+
+  .landing-hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  .landing-features {
+    padding: 4rem 1.25rem;
+  }
+
+  .landing-features__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .landing-cta {
+    padding: 4rem 1.25rem;
+  }
+
+  .landing-btn--lg {
+    width: 100%;
+    max-width: 320px;
+  }
+}
+
 @media (min-width: 768px) {
   .landing-hero__content {
     padding-top: 4rem;
@@ -435,6 +547,10 @@
     justify-content: flex-start;
   }
 
+  .landing-hero__actions .landing-btn {
+    min-width: 160px;
+  }
+
   .landing-hero__visual {
     flex: 1;
     min-width: 400px;
@@ -443,5 +559,13 @@
 
   .landing-hero__copy {
     margin: 0 0 2rem;
+  }
+}
+
+/* Large screens (≥ 1440px) */
+@media (min-width: 1440px) {
+  .landing-hero__content {
+    max-width: 1400px;
+    padding-left: 4rem;
   }
 }

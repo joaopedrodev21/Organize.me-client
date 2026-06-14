@@ -164,3 +164,90 @@
   color: var(--text-secondary);
   transform: translateY(-1px);
 }
+
+/* =============================================
+   Responsive
+   ============================================= */
+
+@media (max-width: 760px) {
+  .task-form {
+    padding: 20px;
+    border-radius: 1.5rem;
+    margin-bottom: 16px;
+  }
+
+  .task-form__header {
+    padding-bottom: 14px;
+    margin-bottom: 18px;
+  }
+
+  .task-form__title {
+    font-size: 1.1rem;
+  }
+
+  .task-form__input,
+  .task-form__textarea,
+  .task-form__select {
+    padding: 12px 14px;
+    border-radius: 14px;
+    font-size: 0.82rem;
+  }
+
+  .task-form__label {
+    font-size: 0.82rem;
+  }
+
+  .task-form__group {
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+
+  .task-form__actions {
+    gap: 10px;
+  }
+
+  .task-form__button {
+    font-size: 0.82rem;
+    padding: 12px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .task-form {
+    padding: 14px;
+    border-radius: 1.25rem;
+    margin-bottom: 12px;
+  }
+
+  .task-form__header {
+    padding-bottom: 12px;
+    margin-bottom: 14px;
+  }
+
+  .task-form__title {
+    font-size: 1rem;
+  }
+
+  .task-form__close {
+    width: 34px;
+    height: 34px;
+    font-size: 1rem;
+  }
+
+  .task-form__input,
+  .task-form__textarea,
+  .task-form__select {
+    padding: 10px 12px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+  }
+
+  .task-form__textarea {
+    min-height: 80px;
+  }
+
+  .task-form__button {
+    font-size: 0.8rem;
+    padding: 10px 14px;
+  }
+}

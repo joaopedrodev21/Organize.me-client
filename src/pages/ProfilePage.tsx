@@ -1,4 +1,5 @@
 import { Sidebar } from "../components/Sidebar";
+import { MobileBottomNav } from "../components/MobileBottomNav";
 import { useAuth } from "../hooks/useAuth";
 import { useTheme } from "../hooks/useTheme";
 import { useTasks } from "../hooks/useTasks";
@@ -31,6 +32,7 @@ export function ProfilePage() {
       <div className="dashboard-page">
         <div className="dashboard-layout">
           <Sidebar tasks={tasks} />
+          <MobileBottomNav />
           <div className="dashboard-main">
             <main>
               <div className="loading-shell">
@@ -50,6 +52,8 @@ export function ProfilePage() {
     <div className="dashboard-page">
       <div className="dashboard-layout">
         <Sidebar tasks={tasks} />
+
+        <MobileBottomNav />
 
         <div className="dashboard-main">
           <main>

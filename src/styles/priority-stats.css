@@ -129,3 +129,48 @@
 .priority-stats__bar-fill--low {
   background: linear-gradient(90deg, #059669, var(--low-priority));
 }
+
+/* =============================================
+   Responsive
+   ============================================= */
+
+@media (max-width: 760px) {
+  .priority-stats {
+    padding: 16px;
+  }
+
+  .priority-stats__body {
+    gap: 14px;
+  }
+
+  .priority-stats__chart-total {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .priority-stats {
+    padding: 14px;
+  }
+
+  .priority-stats__body {
+    flex-direction: column;
+  }
+
+  .priority-stats__bars {
+    width: 100%;
+  }
+
+  .priority-stats__header {
+    margin-bottom: 14px;
+  }
+
+  .priority-stats__title {
+    font-size: 0.82rem;
+  }
+
+  .priority-stats svg {
+    width: 80px;
+    height: 80px;
+  }
+}
